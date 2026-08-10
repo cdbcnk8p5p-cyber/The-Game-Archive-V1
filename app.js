@@ -16,13 +16,30 @@ function load(){
     if(!raw) return base;
     const parsed=JSON.parse(raw);
     if(!Array.isArray(parsed.games)||!Array.isArray(parsed.dlc)) return base;
-    const merged={...base,...parsed,version:'1.1'};
-    merged.games=parsed.games.map(g=>g.id==='ga-waw'&&(!g.format||g.format==='Not recorded')?{...g,format:'Disc'}:g);
+    const merged={...base,...parsed,version:'1.3'};
+    merged.games=parsed.games.map(g=>{
+      if(g.id==='ga-waw'||g.title==='Call of Duty: World at War'){
+        return {
+          ...g,
+          platform:'Xbox 360',
+          family:'Xbox',
+          format:'Disc',
+          status:'Beaten',
+          startedDate:g.startedDate||'2026-08-09',
+          completedDate:'2026-08-10',
+          currentlyPlaying:false,
+          notes:'Completed on Xbox 360.'
+        };
+      }
+      return g;
+    });
     const gameIds=new Set(merged.games.map(g=>g.id));
     base.games.forEach(g=>{if(!gameIds.has(g.id))merged.games.push(g)});
     merged.dlc=parsed.dlc.slice();
     const dlcIds=new Set(merged.dlc.map(d=>d.id));
     base.dlc.forEach(d=>{if(!dlcIds.has(d.id))merged.dlc.push(d)});
+    // Persist migrations immediately so refreshes keep the corrected data.
+    localStorage.setItem(KEY,JSON.stringify(merged));
     return merged;
   }catch{return seed()}
 }
@@ -138,7 +155,7 @@ function submitEntry(e){
 function backup(){/* section is static */}
 function download(name,type,text){const b=new Blob([text],{type}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),600)}
 function exportJson(){download(`the-gaming-archive-v1.2-${new Date().toISOString().slice(0,10)}.json`,'application/json',JSON.stringify(state,null,2))}
-function importJson(file){const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.games)||!Array.isArray(x.dlc))throw new Error();state={...seed(),...x,version:'1.1'};save();render();toast('Archive backup restored')}catch{alert('That file is not a valid Gaming Archive backup.')}};r.readAsText(file)}
+function importJson(file){const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.games)||!Array.isArray(x.dlc))throw new Error();state={...seed(),...x,version:'1.3'};save();render();toast('Archive backup restored')}catch{alert('That file is not a valid Gaming Archive backup.')}};r.readAsText(file)}
 
 function render(){dashboard();games();dlc();progress();milestones();timeline();memory();hall();populateParents()}
 
@@ -152,29 +169,3 @@ if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.ser
 })();
 
 
-// v1.2 migration: World at War completed 10 Aug 2026.
-(function migrateV12(){
-  try {
-    const keys = Object.keys(localStorage);
-    for (const k of keys) {
-      if (!/gaming|archive|game/i.test(k)) continue;
-      const raw = localStorage.getItem(k);
-      if (!raw || raw[0] !== '{') continue;
-      const data = JSON.parse(raw);
-      if (!Array.isArray(data.games)) continue;
-      let changed = false;
-      for (const g of data.games) {
-        if (g && g.title === 'Call of Duty: World at War') {
-          g.format = 'Disc';
-          g.status = 'Beaten';
-          if ('playing' in g) g.playing = false;
-          if ('currentlyPlaying' in g) g.currentlyPlaying = 'No';
-          if ('dateCompleted' in g) g.dateCompleted = '2026-08-10';
-          if ('completed' in g && typeof g.completed === 'string') g.completed = '2026-08-10';
-          changed = true;
-        }
-      }
-      if (changed) localStorage.setItem(k, JSON.stringify(data));
-    }
-  } catch(e) {}
-})();

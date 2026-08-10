@@ -1,7 +1,7 @@
-THE GAMING ARCHIVE v1.2 — CLEAN GITHUB UPLOAD
+THE GAMING ARCHIVE v1.3 — CLEAN GITHUB UPLOAD
 
 1. Extract this ZIP fully to a normal folder on your computer.
-2. Open the extracted folder "the-gaming-archive-v1.2".
+2. Open the extracted folder "the-gaming-archive-v1.3".
 3. In GitHub: Add file > Upload files.
 4. Drag the FILES INSIDE the extracted folder into GitHub.
    Do not drag them directly from inside the ZIP/compressed-folder view.
