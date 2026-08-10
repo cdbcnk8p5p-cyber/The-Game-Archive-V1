@@ -38,7 +38,7 @@ CURRENT ARCHIVE SEED
 
 GITHUB PAGES — FIRST UPLOAD
 1. Extract the ZIP.
-2. Open the folder named the-gaming-archive-v1.3.
+2. Open the folder named the-gaming-archive-v1.5.
 3. Create a NEW GitHub repository for The Gaming Archive (keep it separate from The Game Museum).
 4. Upload every file from inside this folder to the repository root. index.html must be at the top level.
 5. In GitHub: Settings > Pages.
@@ -47,7 +47,7 @@ GITHUB PAGES — FIRST UPLOAD
 8. Wait a minute or two and open the GitHub Pages URL GitHub gives you.
 
 UPDATING LATER
-Upload the contents of a newer version over the existing repository files. The app stores local edits in the browser and Version 1.3 also supports JSON export/import for backups.
+Upload the contents of a newer version over the existing repository files. The app stores local edits in the browser and Version 1.5 also supports JSON export/import for backups.
 
 IMPORTANT DATA RULES
 - DLC never counts towards Main Games, Games Beaten, milestones, platform story totals or Save Files.
@@ -56,8 +56,23 @@ IMPORTANT DATA RULES
 - Save File always shows the most recently beaten main game with a recorded completion date.
 
 
-NEW IN v1.3
+NEW IN v1.5
 - Fixed Call of Duty: World at War so it is Beaten, completed 10/08/2026, and no longer Currently Playing.
 - Fixed the seed data as well as existing browser/localStorage data.
 - Updated the offline cache version so GitHub Pages does not keep serving the older v1.2 files.
 - Main-game totals are now 13 games, 11 beaten, 2 incomplete.
+
+
+NEW IN v1.5
+- Added game and DLC cover-art support throughout The Gaming Archive.
+- Main-game cards can now display cover artwork.
+- Game detail pages show larger cover artwork.
+- DLC cards are cover-ready for future images.
+- Added Call of Duty: World at War Xbox 360 cover supplied by Grant.
+- Existing saved browser data is migrated so World at War picks up its cover automatically.
+
+
+NEW IN v1.5
+- Latest Save File now displays the completed game's cover art when available.
+- Currently Playing now displays cover art when a currently-playing game has artwork.
+- Cover areas automatically hide if no artwork is stored, keeping the dashboard clean.

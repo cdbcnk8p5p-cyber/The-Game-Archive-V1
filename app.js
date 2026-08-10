@@ -16,7 +16,7 @@ function load(){
     if(!raw) return base;
     const parsed=JSON.parse(raw);
     if(!Array.isArray(parsed.games)||!Array.isArray(parsed.dlc)) return base;
-    const merged={...base,...parsed,version:'1.3'};
+    const merged={...base,...parsed,version:'1.5'};
     merged.games=parsed.games.map(g=>{
       if(g.id==='ga-waw'||g.title==='Call of Duty: World at War'){
         return {
@@ -28,7 +28,8 @@ function load(){
           startedDate:g.startedDate||'2026-08-09',
           completedDate:'2026-08-10',
           currentlyPlaying:false,
-          notes:'Completed on Xbox 360.'
+          notes:'Completed on Xbox 360.',
+          cover:'./assets/covers/world-at-war.jpg'
         };
       }
       return g;
@@ -50,6 +51,7 @@ function storyFinished(g){return g.status==='Beaten'||g.status==='Completed'}
 function statusClass(s){return storyFinished({status:s})?'good':s==='Incomplete'?'warn':''}
 function familyClass(f){return f==='PlayStation'?'ps':f==='Xbox'?'xbox':f==='PC'?'pc':f==='Nintendo'?'nintendo':''}
 function familyIcon(f){return ({PlayStation:'🟦',Xbox:'🟩',PC:'🖥️',Nintendo:'🔴'})[f]||'⚪'}
+function coverMarkup(item,cls='game-cover'){return item?.cover?`<img class="${cls}" src="${esc(item.cover)}" alt="${esc(item.title)} cover art" loading="lazy">`:`<div class="${cls} cover-placeholder" aria-hidden="true">🎮</div>`}
 function pct(a,b){return b?Math.round((a/b)*1000)/10:0}
 function completedMain(){return state.games.filter(storyFinished).filter(g=>g.completedDate).sort((a,b)=>a.completedDate.localeCompare(b.completedDate))}
 function latestSave(){const arr=completedMain();const game=arr.at(-1);if(!game)return null;const memory=(state.memories||[]).find(m=>m.gameId===game.id);return {game,number:arr.length,quote:memory?.quote||'Story complete.'}}
@@ -63,10 +65,30 @@ function dashboard(){
   const total=state.games.length, beaten=state.games.filter(storyFinished).length, incomplete=state.games.filter(g=>g.status==='Incomplete').length;
   $('#headlineBeaten').textContent=beaten;$('#mainCount').textContent=total;$('#beatenCount').textContent=beaten;$('#incompleteCount').textContent=incomplete;$('#dlcCount').textContent=state.dlc.length;
   const playing=state.games.filter(g=>g.currentlyPlaying);
-  if(playing.length){$('#playingTitle').textContent=playing.map(g=>g.title).join(' • ');$('#playingMeta').textContent=playing.map(g=>`${g.platform}${g.startedDate?' • started '+fmtDate(g.startedDate):''}`).join(' | ')}
-  else{$('#playingTitle').textContent='Nothing selected';$('#playingMeta').textContent='Mark a game as currently playing and it will appear here.'}
+  const playingCoverWrap=$('#playingCoverWrap'),playingCover=$('#playingCover');
+  if(playing.length){
+    $('#playingTitle').textContent=playing.map(g=>g.title).join(' • ');
+    $('#playingMeta').textContent=playing.map(g=>`${g.platform}${g.startedDate?' • started '+fmtDate(g.startedDate):''}`).join(' | ');
+    const artGame=playing.find(g=>g.cover);
+    if(artGame){playingCover.src=artGame.cover;playingCover.alt=artGame.title+' cover art';playingCoverWrap.classList.remove('hidden')}
+    else{playingCover.removeAttribute('src');playingCover.alt='';playingCoverWrap.classList.add('hidden')}
+  }else{
+    $('#playingTitle').textContent='Nothing selected';
+    $('#playingMeta').textContent='Mark a game as currently playing and it will appear here.';
+    playingCover.removeAttribute('src');playingCover.alt='';playingCoverWrap.classList.add('hidden')
+  }
   const latest=latestSave();
-  if(latest){$('#latestSaveTitle').textContent=latest.game.title;$('#latestSaveNumber').textContent='#'+latest.number;$('#latestSaveMeta').textContent=`${latest.game.platform} • ${fmtDate(latest.game.completedDate)}`;$('#latestSaveQuote').textContent='“'+latest.quote+'”'}
+  const latestWrap=$('#latestSaveCoverWrap'),latestCover=$('#latestSaveCover');
+  if(latest){
+    $('#latestSaveTitle').textContent=latest.game.title;
+    $('#latestSaveNumber').textContent='#'+latest.number;
+    $('#latestSaveMeta').textContent=`${latest.game.platform} • ${fmtDate(latest.game.completedDate)}`;
+    $('#latestSaveQuote').textContent='“'+latest.quote+'”';
+    if(latest.game.cover){latestCover.src=latest.game.cover;latestCover.alt=latest.game.title+' cover art';latestWrap.classList.remove('hidden')}
+    else{latestCover.removeAttribute('src');latestCover.alt='';latestWrap.classList.add('hidden')}
+  }else{
+    latestCover.removeAttribute('src');latestCover.alt='';latestWrap.classList.add('hidden')
+  }
   const cp=pct(beaten,total);$('#homeCompletionPct').textContent=cp+'%';$('#homeCompletionBar').style.width=cp+'%';$('#homeCompletionText').textContent=`${beaten} of ${total} main stories beaten. ${count100()} tracked at 100%.`;
   const arr=completedMain(), ten=arr[9], first=arr[0];
   if(ten){$('#homeMilestoneTitle').textContent='10 games beaten';$('#homeMilestoneMeta').textContent=`${ten.title} • ${fmtDate(ten.completedDate)}`}
@@ -87,18 +109,18 @@ function games(){
   }).join('')||'<article class="panel">No main games match those filters.</article>';
   $$('.game-card').forEach(c=>c.onclick=()=>openGame(c.dataset.id));
 }
-function gameCard(g){return `<button class="game-card ${familyClass(g.family)}" data-id="${esc(g.id)}"><div class="badge-row"><span class="badge ${statusClass(g.status)}">${esc(g.status)}</span>${g.currentlyPlaying?'<span class="badge live">▶ Playing</span>':''}</div><h3>${esc(g.title)}</h3><div class="game-meta">${esc(g.platform)} • ${esc(g.format||'Not recorded')}</div><div class="game-meta">${g.completedDate?'Completed '+fmtDate(g.completedDate):g.startedDate?'Started '+fmtDate(g.startedDate):'No date recorded'}</div></button>`}
+function gameCard(g){return `<button class="game-card ${familyClass(g.family)} ${g.cover?'has-cover':''}" data-id="${esc(g.id)}">${coverMarkup(g)}<div class="game-card-copy"><div class="badge-row"><span class="badge ${statusClass(g.status)}">${esc(g.status)}</span>${g.currentlyPlaying?'<span class="badge live">▶ Playing</span>':''}</div><h3>${esc(g.title)}</h3><div class="game-meta">${esc(g.platform)} • ${esc(g.format||'Not recorded')}</div><div class="game-meta">${g.completedDate?'Completed '+fmtDate(g.completedDate):g.startedDate?'Started '+fmtDate(g.startedDate):'No date recorded'}</div></div></button>`}
 function openGame(id){
   const g=state.games.find(x=>x.id===id);if(!g)return;
   const dlg=$('#gameDialog');
-  $('#dialogContent').innerHTML=`<div class="dialog-body"><span class="eyebrow">MAIN GAME</span><h2>${esc(g.title)}</h2><div class="badge-row"><span class="badge ${statusClass(g.status)}">${esc(g.status)}</span>${g.currentlyPlaying?'<span class="badge live">▶ Currently playing</span>':''}</div><div class="detail-grid"><div><small>Platform</small><strong>${esc(g.platform)}</strong></div><div><small>Format</small><strong>${esc(g.format||'Not recorded')}</strong></div><div><small>Series</small><strong>${esc(g.series||'Not recorded')}</strong></div><div><small>Started</small><strong>${g.startedDate?fmtDate(g.startedDate):'Not recorded'}</strong></div><div><small>Completed</small><strong>${g.completedDate?fmtDate(g.completedDate):'—'}</strong></div><div><small>100% status</small><strong>${g.status==='Completed'?'Yes':'No / not tracked'}</strong></div></div>${g.notes?`<p class="muted">${esc(g.notes)}</p>`:''}<button class="primary-btn" id="editGameBtn">Edit entry</button></div>`;
+  $('#dialogContent').innerHTML=`<div class="dialog-body detail-with-cover"><div class="detail-cover-wrap">${coverMarkup(g,'detail-cover')}</div><div class="detail-copy"><span class="eyebrow">MAIN GAME</span><h2>${esc(g.title)}</h2><div class="badge-row"><span class="badge ${statusClass(g.status)}">${esc(g.status)}</span>${g.currentlyPlaying?'<span class="badge live">▶ Currently playing</span>':''}</div><div class="detail-grid"><div><small>Platform</small><strong>${esc(g.platform)}</strong></div><div><small>Format</small><strong>${esc(g.format||'Not recorded')}</strong></div><div><small>Series</small><strong>${esc(g.series||'Not recorded')}</strong></div><div><small>Started</small><strong>${g.startedDate?fmtDate(g.startedDate):'Not recorded'}</strong></div><div><small>Completed</small><strong>${g.completedDate?fmtDate(g.completedDate):'—'}</strong></div><div><small>100% status</small><strong>${g.status==='Completed'?'Yes':'No / not tracked'}</strong></div></div>${g.notes?`<p class="muted">${esc(g.notes)}</p>`:''}<button class="primary-btn" id="editGameBtn">Edit entry</button></div></div>`;
   dlg.showModal();$('#editGameBtn').onclick=()=>{dlg.close();editGame(g.id)};
 }
 
 function dlc(){
   const total=state.dlc.length, done=state.dlc.filter(d=>storyFinished(d)).length, rate=pct(done,total);
   $('#dlcSummary').innerHTML=`<article><small>Total DLC</small><strong>${total}</strong><span>separate entries</span></article><article><small>Completed</small><strong>${done}</strong><span>finished add-ons</span></article><article><small>DLC progress</small><strong>${rate}%</strong><span>does not affect main stats</span></article>`;
-  $('#dlcList').innerHTML=state.dlc.map(d=>`<article class="dlc-card"><div><div class="badge-row"><span class="badge ${statusClass(d.status)}">${esc(d.status)}</span></div><h3>${esc(d.title)}</h3><span class="dlc-link">↳ ${esc(d.parentGame||'Parent game not recorded')}</span></div><div class="muted">${esc(d.platform)}<br>${d.completedDate?'Completed '+fmtDate(d.completedDate):'Completion date unknown'}</div><button class="ghost-btn dlc-edit" data-id="${esc(d.id)}">Edit</button></article>`).join('')||'<article class="panel">No DLC archived yet.</article>';
+  $('#dlcList').innerHTML=state.dlc.map(d=>`<article class="dlc-card ${d.cover?'has-cover':''}">${coverMarkup(d,'dlc-cover')}<div><div class="badge-row"><span class="badge ${statusClass(d.status)}">${esc(d.status)}</span></div><h3>${esc(d.title)}</h3><span class="dlc-link">↳ ${esc(d.parentGame||'Parent game not recorded')}</span></div><div class="muted">${esc(d.platform)}<br>${d.completedDate?'Completed '+fmtDate(d.completedDate):'Completion date unknown'}</div><button class="ghost-btn dlc-edit" data-id="${esc(d.id)}">Edit</button></article>`).join('')||'<article class="panel">No DLC archived yet.</article>';
   $$('.dlc-edit').forEach(b=>b.onclick=()=>editDlc(b.dataset.id));
 }
 
@@ -155,7 +177,7 @@ function submitEntry(e){
 function backup(){/* section is static */}
 function download(name,type,text){const b=new Blob([text],{type}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),600)}
 function exportJson(){download(`the-gaming-archive-v1.2-${new Date().toISOString().slice(0,10)}.json`,'application/json',JSON.stringify(state,null,2))}
-function importJson(file){const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.games)||!Array.isArray(x.dlc))throw new Error();state={...seed(),...x,version:'1.3'};save();render();toast('Archive backup restored')}catch{alert('That file is not a valid Gaming Archive backup.')}};r.readAsText(file)}
+function importJson(file){const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.games)||!Array.isArray(x.dlc))throw new Error();state={...seed(),...x,version:'1.5'};save();render();toast('Archive backup restored')}catch{alert('That file is not a valid Gaming Archive backup.')}};r.readAsText(file)}
 
 function render(){dashboard();games();dlc();progress();milestones();timeline();memory();hall();populateParents()}
 

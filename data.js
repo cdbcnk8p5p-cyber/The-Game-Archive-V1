@@ -1,5 +1,5 @@
 window.GAMING_ARCHIVE_SEED = {
-  version: '1.1',
+  version: '1.4',
   archiveStarted: '2025-02-13',
   motto: 'Every game has a story. Every player leaves a legacy.',
   games: [
@@ -15,7 +15,7 @@ window.GAMING_ARCHIVE_SEED = {
     {id:'ga-swtd', title:'Still Wakes the Deep', series:'Still Wakes the Deep', platform:'PlayStation 5', family:'PlayStation', format:'Digital', status:'Beaten', startedDate:'', completedDate:'2026-01-21', currentlyPlaying:false, notes:''},
     {id:'ga-mafia', title:'Mafia: The Old Country', series:'Mafia', platform:'Xbox Series X/S', family:'Xbox', format:'Disc', status:'Beaten', startedDate:'', completedDate:'2026-01-25', currentlyPlaying:false, notes:''},
     {id:'ga-gtav', title:'Grand Theft Auto V Enhanced', series:'Grand Theft Auto', platform:'PC', family:'PC', format:'Digital', status:'Beaten', startedDate:'', completedDate:'2026-07-12', currentlyPlaying:false, notes:'Final planned GTA V story completion.'},
-    {id:'ga-waw', title:'Call of Duty: World at War', series:'Call of Duty', platform:'Xbox 360', family:'Xbox', format:'Disc', status:'Beaten', startedDate:'2026-08-09', completedDate:'2026-08-10', currentlyPlaying:false, notes:'Completed on Xbox 360.'}
+    {id:'ga-waw', title:'Call of Duty: World at War', series:'Call of Duty', platform:'Xbox 360', family:'Xbox', format:'Disc', status:'Beaten', startedDate:'2026-08-09', completedDate:'2026-08-10', currentlyPlaying:false, notes:'Completed on Xbox 360.', cover:'./assets/covers/world-at-war.jpg'}
   ],
   dlc: [
     {id:'dlc-left-behind', title:'Left Behind', parentGameId:'ga-tlou1', parentGame:'The Last of Us Part I Remastered', platform:'PlayStation 5', status:'Beaten', completedDate:'2025-05-06', notes:''},
