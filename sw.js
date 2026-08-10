@@ -1,4 +1,4 @@
-const CACHE='gaming-archive-v1-7-polished-covers';
+const CACHE='gaming-archive-v1-8-clean-covers';
 const ASSETS=['./','./index.html','./styles.css','./cover-fix.css','./app.js','./data.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./assets/covers/world-at-war.jpg'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
