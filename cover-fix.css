@@ -1,32 +1,37 @@
-/* v1.7 polished cover layout */
+/* v1.8 clean cover layout */
 
-/* Main game cards: covers sit like real cases, with clean spacing and no cropping. */
+/* Cover art should look like the supplied image itself — no fake case/frame around it. */
 .game-card.has-cover{
   display:flex;
   flex-direction:column;
-  padding:14px 14px 0;
+  padding:0;
   overflow:hidden;
   min-height:0;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
 }
+.game-card.has-cover:before{display:none}
 .game-card.has-cover .game-cover{
   display:block;
   width:100%;
   height:auto;
-  aspect-ratio:2/3;
+  aspect-ratio:auto;
   object-fit:contain;
   object-position:center;
-  background:var(--surface2);
-  border:1px solid var(--line);
-  border-radius:14px;
-  box-shadow:0 12px 28px rgba(0,0,0,.18);
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
 }
 .game-card.has-cover .game-card-copy{
-  padding:15px 4px 18px;
+  padding:14px 2px 18px;
   align-self:stretch;
 }
 .game-card.has-cover .game-card-copy h3{margin:10px 0 7px}
 
-/* Games without artwork stay compact instead of showing a giant empty case. */
+/* Games without artwork keep the original compact Archive card. */
 .game-card:not(.has-cover){
   display:block;
   padding:18px;
@@ -35,7 +40,7 @@
 .game-card:not(.has-cover) .game-cover{display:none}
 .game-card:not(.has-cover) .game-card-copy{padding:0}
 
-/* Latest Save / Currently Playing: larger framed portrait artwork. */
+/* Latest Save / Currently Playing: show the artwork cleanly with no extra frame. */
 .home-feature-card{
   grid-template-columns:190px minmax(0,1fr);
   gap:24px;
@@ -47,38 +52,56 @@
   display:flex;
   align-items:center;
   justify-content:center;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
 }
 .home-cover{
   display:block;
   width:100%;
   height:auto;
   max-height:360px;
-  aspect-ratio:2/3;
+  aspect-ratio:auto;
   object-fit:contain;
   object-position:center;
-  background:var(--surface2);
-  border:1px solid var(--line);
-  border-radius:16px;
-  box-shadow:0 14px 32px rgba(0,0,0,.20);
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
 }
 
-/* Detail and DLC artwork use the same uncropped case treatment. */
+/* Detail view: artwork only, with no decorative case border/shadow. */
+.detail-cover-wrap{
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
 .detail-cover{
+  display:block;
   width:100%;
   height:auto;
-  aspect-ratio:2/3;
+  aspect-ratio:auto;
   object-fit:contain;
   object-position:center;
-  background:var(--surface2);
-  border-radius:16px;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
 }
+
+/* DLC follows the same clean artwork treatment. */
 .dlc-cover{
   width:88px;
   height:auto;
-  aspect-ratio:2/3;
+  aspect-ratio:auto;
   object-fit:contain;
   object-position:center;
-  background:var(--surface2);
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
 }
 
 @media(max-width:900px){
@@ -89,7 +112,7 @@
 
 @media(max-width:620px){
   .game-grid{grid-template-columns:1fr}
-  .game-card.has-cover{padding:12px 12px 0}
+  .game-card.has-cover{padding:0}
   .game-card.has-cover .game-cover{max-width:250px;margin:0 auto}
   .home-feature-card{grid-template-columns:112px minmax(0,1fr);gap:14px}
   .home-cover{max-height:240px}
