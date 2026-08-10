@@ -1,0 +1,23 @@
+THE GAMING ARCHIVE v1.2 — CLEAN GITHUB UPLOAD
+
+1. Extract this ZIP fully to a normal folder on your computer.
+2. Open the extracted folder "the-gaming-archive-v1.2".
+3. In GitHub: Add file > Upload files.
+4. Drag the FILES INSIDE the extracted folder into GitHub.
+   Do not drag them directly from inside the ZIP/compressed-folder view.
+5. Commit directly to main.
+
+Included:
+- index.html
+- styles.css
+- app.js
+- data.js
+- manifest.webmanifest
+- sw.js
+- 404.html
+- icon-192.png
+- icon-512.png
+- README.txt
+
+The zero-byte .nojekyll file is intentionally omitted from this clean upload pack.
+This app does not require it for the current static file structure.

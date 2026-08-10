@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0f1722">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Gaming Archive">
+  <meta name="description" content="Grant's personal gaming history, completions, memories and milestones.">
+  <title>The Gaming Archive v1.2</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div class="ambient"></div>
+<header class="topbar">
+  <button id="menuBtn" class="round-btn" aria-label="Open menu">☰</button>
+  <div class="brand">
+    <span>GRANT'S GAMING HISTORY</span>
+    <strong>The Gaming Archive</strong>
+  </div>
+  <button id="themeBtn" class="round-btn" aria-label="Toggle theme">◐</button>
+</header>
+
+<aside id="drawer" class="drawer" aria-label="Archive navigation">
+  <div class="drawer-head"><span class="drawer-icon">💾</span><div><strong>The Gaming Archive</strong><small>Version 1.2</small></div></div>
+  <button data-page="home">🕹️ Archive Home</button>
+  <button data-page="games">🎮 Main Games</button>
+  <button data-page="dlc">🧩 DLC Archive</button>
+  <button data-page="progress">📈 Progress Centre</button>
+  <button data-page="milestones">🏅 Milestones</button>
+  <button data-page="timeline">📅 Completion Timeline</button>
+  <button data-page="memory">💾 Memory Card</button>
+  <button data-page="hall">⭐ Hall of Fame</button>
+  <button data-page="roulette">🎲 Backlog Roulette</button>
+  <button data-page="add">＋ Add / Update</button>
+  <button data-page="backup">⚙️ Backup & Sync</button>
+</aside>
+<div id="scrim" class="scrim"></div>
+
+<main>
+  <section id="home" class="page active">
+    <article class="hero reveal">
+      <div class="hero-copy">
+        <span class="eyebrow">SAVING GAMING MEMORIES SINCE 13 FEBRUARY 2025</span>
+        <h1><span id="headlineBeaten">0</span> stories completed</h1>
+        <p id="headlineCopy">Your gaming journey, saved one story at a time.</p>
+        <div class="hero-actions">
+          <button class="primary-btn" data-go="games">Open the archive</button>
+          <button class="ghost-btn" data-go="roulette">🎲 Pick my next game</button>
+        </div>
+      </div>
+      <div class="hero-emblem" aria-hidden="true"><div class="memory-card-mark"><span>GA</span><i></i></div></div>
+    </article>
+
+    <div class="stat-grid reveal">
+      <article><small>Main games</small><strong id="mainCount">0</strong><span>tracked stories</span></article>
+      <article><small>Games beaten</small><strong id="beatenCount">0</strong><span>main stories finished</span></article>
+      <article><small>Incomplete</small><strong id="incompleteCount">0</strong><span>still in progress</span></article>
+      <article><small>DLC archive</small><strong id="dlcCount">0</strong><span>tracked separately</span></article>
+    </div>
+
+    <div class="home-grid reveal">
+      <article class="panel focus-panel">
+        <div class="panel-head"><div><span class="eyebrow">CURRENTLY PLAYING</span><h2 id="playingTitle">Nothing selected</h2></div><span class="status-dot live"></span></div>
+        <p id="playingMeta" class="muted">Mark a game as currently playing and it will appear here.</p>
+        <button class="text-btn" data-go="games">View main games →</button>
+      </article>
+
+      <article class="panel save-panel">
+        <div class="panel-head"><div><span class="eyebrow">LATEST SAVE FILE</span><h2 id="latestSaveTitle">No completed game yet</h2></div><span class="save-chip" id="latestSaveNumber">#—</span></div>
+        <p id="latestSaveMeta" class="muted"></p>
+        <blockquote id="latestSaveQuote">Story complete.</blockquote>
+      </article>
+    </div>
+
+    <div class="home-grid reveal">
+      <article class="panel">
+        <div class="panel-head"><div><span class="eyebrow">STORY COMPLETION</span><h2 id="homeCompletionPct">0%</h2></div><span>🎮</span></div>
+        <div class="progress-track"><i id="homeCompletionBar"></i></div>
+        <p id="homeCompletionText" class="muted"></p>
+      </article>
+      <article class="panel">
+        <div class="panel-head"><div><span class="eyebrow">MILESTONES</span><h2 id="homeMilestoneTitle">First game beaten</h2></div><span>🏅</span></div>
+        <p id="homeMilestoneMeta" class="muted"></p>
+        <button class="text-btn" data-go="milestones">View milestones →</button>
+      </article>
+    </div>
+  </section>
+
+  <section id="games" class="page">
+    <div class="page-title"><div><span class="eyebrow">THE PLAYER</span><h1>Main Games</h1><p>Only main games count towards story totals, milestones and Save Files.</p></div></div>
+    <div class="toolbar">
+      <input id="gameSearch" type="search" placeholder="Search games, series or platform…" aria-label="Search main games">
+      <select id="gameStatusFilter" aria-label="Filter by status"><option value="">All statuses</option><option>Beaten</option><option>Incomplete</option><option>Not Started</option><option>Completed</option></select>
+    </div>
+    <div id="platformTabs" class="platform-tabs"></div>
+    <div id="gameSections"></div>
+  </section>
+
+  <section id="dlc" class="page">
+    <div class="page-title"><div><span class="eyebrow">SEPARATE FROM MAIN GAME STATS</span><h1>DLC Archive</h1><p>Expansions and add-ons live here and never inflate your main-game totals.</p></div></div>
+    <div id="dlcSummary" class="stat-grid compact"></div>
+    <div id="dlcList" class="card-list"></div>
+  </section>
+
+  <section id="progress" class="page">
+    <div class="page-title"><div><span class="eyebrow">THE NUMBERS BEHIND THE JOURNEY</span><h1>Progress Centre</h1><p>Story progress, platforms, formats, franchises and yearly completions.</p></div></div>
+    <div class="progress-layout">
+      <article class="panel big-metric"><span class="eyebrow">STORY COMPLETION</span><div class="ring" id="completionRing"><div><strong id="progressPct">0%</strong><span>beaten</span></div></div><p id="progressStoryText" class="muted"></p></article>
+      <article class="panel"><span class="eyebrow">DLC PROGRESS</span><h2 id="dlcPct">0%</h2><div class="progress-track"><i id="dlcProgressBar"></i></div><p id="dlcProgressText" class="muted"></p></article>
+    </div>
+    <article class="panel chart-panel"><div class="panel-head"><div><span class="eyebrow">PLATFORM PROGRESS</span><h2>Main stories by platform</h2></div></div><div id="platformChart" class="bar-chart"></div></article>
+    <div class="progress-layout">
+      <article class="panel chart-panel"><span class="eyebrow">COMPLETIONS BY YEAR</span><h2>Stories finished</h2><div id="yearChart" class="bar-chart"></div></article>
+      <article class="panel chart-panel"><span class="eyebrow">FORMAT MIX</span><h2>Physical vs digital</h2><div id="formatDonut" class="donut-wrap"></div></article>
+    </div>
+    <article class="panel chart-panel"><span class="eyebrow">FRANCHISE PROGRESS</span><h2>Series completion</h2><div id="franchiseChart" class="franchise-chart"></div></article>
+  </section>
+
+  <section id="milestones" class="page">
+    <div class="page-title"><div><span class="eyebrow">STORIES WORTH MARKING</span><h1>Milestones</h1><p>Milestones use main games only. DLC never counts towards them.</p></div></div>
+    <div id="milestoneList" class="milestone-grid"></div>
+  </section>
+
+  <section id="timeline" class="page">
+    <div class="page-title"><div><span class="eyebrow">ROLL THE CREDITS</span><h1>Completion Timeline</h1><p>Every main story completion in date order.</p></div></div>
+    <div id="timelineList" class="timeline"></div>
+  </section>
+
+  <section id="memory" class="page">
+    <div class="page-title"><div><span class="eyebrow">THE MOMENTS THAT STAY</span><h1>Memory Card</h1><p>Not every game needs a memory slot. Only the ones you want to remember.</p></div></div>
+    <div id="memoryList" class="memory-grid"></div>
+  </section>
+
+  <section id="hall" class="page">
+    <div class="page-title"><div><span class="eyebrow">THE VERY BEST</span><h1>Hall of Fame</h1><p>Games that genuinely earned a permanent place in your gaming story.</p></div></div>
+    <div id="hallList" class="hall-grid"></div>
+  </section>
+
+  <section id="roulette" class="page">
+    <div class="page-title"><div><span class="eyebrow">CAN'T PICK?</span><h1>Backlog Roulette</h1><p>Let the archive choose from your unfinished main games.</p></div></div>
+    <article class="roulette-card panel">
+      <div class="roulette-orb">🎲</div>
+      <span class="eyebrow">YOUR NEXT ADVENTURE</span>
+      <h2 id="rouletteTitle">Ready when you are.</h2>
+      <p id="rouletteMeta" class="muted">The draw only uses unfinished main games.</p>
+      <button id="rouletteBtn" class="primary-btn">Roll the archive</button>
+    </article>
+  </section>
+
+  <section id="add" class="page">
+    <div class="page-title"><div><span class="eyebrow">LOCAL APP EDITS</span><h1>Add / Update</h1><p>Changes are saved on this device. Export a backup whenever you want to keep a copy.</p></div></div>
+    <article class="panel form-panel">
+      <form id="entryForm">
+        <div class="form-grid">
+          <label>Entry type<select name="type" id="entryType"><option value="game">Main Game</option><option value="dlc">DLC</option></select></label>
+          <label>Title<input name="title" required placeholder="Game or DLC title"></label>
+          <label>Series<input name="series" placeholder="e.g. Call of Duty"></label>
+          <label>Platform<input name="platform" required placeholder="e.g. Xbox 360"></label>
+          <label id="familyLabel">Platform family<select name="family"><option>PlayStation</option><option>Xbox</option><option>PC</option><option>Nintendo</option><option>Other</option></select></label>
+          <label id="formatLabel">Format<select name="format"><option>Digital</option><option>Disc</option><option>Disc (PS4 Disc)</option><option>Not recorded</option></select></label>
+          <label>Status<select name="status"><option>Not Started</option><option>Incomplete</option><option>Beaten</option><option>Completed</option></select></label>
+          <label id="startedLabel">Started date<input name="startedDate" type="date"></label>
+          <label>Completed date<input name="completedDate" type="date"></label>
+          <label id="playingLabel" class="check-label"><input name="currentlyPlaying" type="checkbox"> Currently playing</label>
+          <label id="parentLabel" class="hidden">Parent game<select name="parentGame" id="parentGameSelect"></select></label>
+        </div>
+        <label>Notes<textarea name="notes" rows="4" placeholder="Anything worth remembering…"></textarea></label>
+        <div class="form-actions"><button class="primary-btn" type="submit">Save entry</button><button id="clearEntryForm" class="ghost-btn" type="button">Clear</button></div>
+      </form>
+    </article>
+  </section>
+
+  <section id="backup" class="page">
+    <div class="page-title"><div><span class="eyebrow">KEEP YOUR ARCHIVE SAFE</span><h1>Backup & Sync</h1><p>The app works offline and stores edits locally in this browser.</p></div></div>
+    <div class="backup-grid">
+      <article class="panel"><span class="eyebrow">EXPORT</span><h2>Archive backup</h2><p class="muted">Download your full Gaming Archive as JSON.</p><button id="exportBtn" class="primary-btn">Export JSON</button></article>
+      <article class="panel"><span class="eyebrow">IMPORT</span><h2>Restore backup</h2><p class="muted">Load a previously exported Gaming Archive backup.</p><label class="file-btn">Choose JSON<input id="importFile" type="file" accept="application/json,.json"></label></article>
+      <article class="panel danger-panel"><span class="eyebrow">RESET</span><h2>Restore Version 1.2</h2><p class="muted">Removes local changes and reloads the original archive bundled with this version.</p><button id="resetBtn" class="danger-btn">Reset local archive</button></article>
+    </div>
+  </section>
+</main>
+
+<dialog id="gameDialog" class="game-dialog"><button class="dialog-close" aria-label="Close">×</button><div id="dialogContent"></div></dialog>
+<div id="toast" class="toast" role="status"></div>
+
+<footer><strong>The Gaming Archive</strong><span>v1.2 • Saving gaming memories since 13 February 2025</span></footer>
+
+<script src="./data.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

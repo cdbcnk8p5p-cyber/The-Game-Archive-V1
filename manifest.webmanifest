@@ -1,0 +1,14 @@
+{
+  "name": "The Gaming Archive",
+  "short_name": "Gaming Archive",
+  "description": "Grant's personal gaming history, completions, memories and milestones.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f1722",
+  "theme_color": "#0f1722",
+  "icons": [
+    {"src":"./icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"./icon-512.png","sizes":"512x512","type":"image/png"}
+  ]
+}
