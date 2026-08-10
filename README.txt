@@ -2,7 +2,7 @@ THE GAMING ARCHIVE — VERSION 1.1
 
 NEW IN VERSION 1.1
 - Call of Duty: World at War is now correctly recorded as an Xbox 360 disc copy.
-- Existing Version 1.0 browser data migrates automatically: if World at War still says "Not recorded", it is corrected to "Disc" without wiping your other local edits.
+- Existing Version 1.7 browser data migrates automatically: if World at War still says "Not recorded", it is corrected to "Disc" without wiping your other local edits.
 
 
 A separate companion app to The Game Museum.
@@ -38,7 +38,7 @@ CURRENT ARCHIVE SEED
 
 GITHUB PAGES — FIRST UPLOAD
 1. Extract the ZIP.
-2. Open the folder named the-gaming-archive-v1.5.
+2. Open the folder named the-gaming-archive-v1.7.
 3. Create a NEW GitHub repository for The Gaming Archive (keep it separate from The Game Museum).
 4. Upload every file from inside this folder to the repository root. index.html must be at the top level.
 5. In GitHub: Settings > Pages.
@@ -47,7 +47,7 @@ GITHUB PAGES — FIRST UPLOAD
 8. Wait a minute or two and open the GitHub Pages URL GitHub gives you.
 
 UPDATING LATER
-Upload the contents of a newer version over the existing repository files. The app stores local edits in the browser and Version 1.5 also supports JSON export/import for backups.
+Upload the contents of a newer version over the existing repository files. The app stores local edits in the browser and Version 1.7 also supports JSON export/import for backups.
 
 IMPORTANT DATA RULES
 - DLC never counts towards Main Games, Games Beaten, milestones, platform story totals or Save Files.
@@ -56,14 +56,14 @@ IMPORTANT DATA RULES
 - Save File always shows the most recently beaten main game with a recorded completion date.
 
 
-NEW IN v1.5
+NEW IN v1.7
 - Fixed Call of Duty: World at War so it is Beaten, completed 10/08/2026, and no longer Currently Playing.
 - Fixed the seed data as well as existing browser/localStorage data.
-- Updated the offline cache version so GitHub Pages does not keep serving the older v1.2 files.
+- Updated the offline cache version so GitHub Pages does not keep serving the older v1.7 files.
 - Main-game totals are now 13 games, 11 beaten, 2 incomplete.
 
 
-NEW IN v1.5
+NEW IN v1.7
 - Added game and DLC cover-art support throughout The Gaming Archive.
 - Main-game cards can now display cover artwork.
 - Game detail pages show larger cover artwork.
@@ -72,7 +72,25 @@ NEW IN v1.5
 - Existing saved browser data is migrated so World at War picks up its cover automatically.
 
 
-NEW IN v1.5
+NEW IN v1.7
 - Latest Save File now displays the completed game's cover art when available.
 - Currently Playing now displays cover art when a currently-playing game has artwork.
 - Cover areas automatically hide if no artwork is stored, keeping the dashboard clean.
+
+
+NEW IN v1.7
+- Fixed portrait box-art cropping on the main game cards.
+- Fixed Latest Save File cover cropping.
+- Fixed Currently Playing cover sizing.
+- Covers now keep their full 2:3 case artwork instead of being cut into landscape thumbnails.
+- Detail and DLC artwork use the same full-cover treatment.
+- Updated offline cache so the visual fix appears after deployment.
+
+NEW IN v1.7 — FULL ARTWORK
+- Added supplied artwork for all 13 main games.
+- Added dedicated Left Behind and Siren's Rest artwork to the separate DLC Archive.
+- Existing browser data inherits artwork automatically; no reset required.
+- Latest Save and Currently Playing use the same artwork automatically.
+
+STAGED ARTWORK
+- Call of Duty: Black Ops (Xbox 360) cover is stored at assets/covers/black-ops.jpg, ready for a future Archive entry.
