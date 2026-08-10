@@ -1,12 +1,101 @@
-/* v1.6 direct GitHub cover-art fix */
-.game-card{display:grid;grid-template-columns:132px minmax(0,1fr);align-items:stretch;padding:0;overflow:hidden}
-.game-card .game-cover{width:100%;height:100%;min-height:210px;aspect-ratio:2/3;object-fit:contain;object-position:center;background:var(--surface2);border:0;border-right:1px solid var(--line);border-radius:0}
-.game-card .game-card-copy{padding:18px 18px 20px;align-self:center}
-.game-card .cover-placeholder{min-height:210px}
-.home-feature-card{grid-template-columns:150px minmax(0,1fr);align-items:center}
-.home-cover-wrap{min-height:0;align-self:center}
-.home-cover{width:100%;height:auto;min-height:0;max-height:320px;aspect-ratio:2/3;object-fit:contain;object-position:center;background:var(--surface2);border-radius:14px}
-.detail-cover{width:100%;height:auto;aspect-ratio:2/3;object-fit:contain;object-position:center;background:var(--surface2)}
-.dlc-cover{width:88px;height:auto;aspect-ratio:2/3;object-fit:contain;object-position:center;background:var(--surface2)}
-@media(max-width:760px){.game-card{grid-template-columns:108px minmax(0,1fr)}.game-card .game-cover,.game-card .cover-placeholder{min-height:172px}.home-feature-card{grid-template-columns:112px minmax(0,1fr)}.home-cover{max-height:250px}}
-@media(max-width:520px){.game-card{grid-template-columns:92px minmax(0,1fr)}.game-card .game-cover,.game-card .cover-placeholder{min-height:148px}.game-card .game-card-copy{padding:14px 14px 16px}.home-feature-card{grid-template-columns:96px minmax(0,1fr);gap:14px}.home-cover{max-height:220px}}
+/* v1.7 polished cover layout */
+
+/* Main game cards: covers sit like real cases, with clean spacing and no cropping. */
+.game-card.has-cover{
+  display:flex;
+  flex-direction:column;
+  padding:14px 14px 0;
+  overflow:hidden;
+  min-height:0;
+}
+.game-card.has-cover .game-cover{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:2/3;
+  object-fit:contain;
+  object-position:center;
+  background:var(--surface2);
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:0 12px 28px rgba(0,0,0,.18);
+}
+.game-card.has-cover .game-card-copy{
+  padding:15px 4px 18px;
+  align-self:stretch;
+}
+.game-card.has-cover .game-card-copy h3{margin:10px 0 7px}
+
+/* Games without artwork stay compact instead of showing a giant empty case. */
+.game-card:not(.has-cover){
+  display:block;
+  padding:18px;
+  min-height:165px;
+}
+.game-card:not(.has-cover) .game-cover{display:none}
+.game-card:not(.has-cover) .game-card-copy{padding:0}
+
+/* Latest Save / Currently Playing: larger framed portrait artwork. */
+.home-feature-card{
+  grid-template-columns:190px minmax(0,1fr);
+  gap:24px;
+  align-items:center;
+}
+.home-cover-wrap{
+  min-height:0;
+  align-self:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.home-cover{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:360px;
+  aspect-ratio:2/3;
+  object-fit:contain;
+  object-position:center;
+  background:var(--surface2);
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:0 14px 32px rgba(0,0,0,.20);
+}
+
+/* Detail and DLC artwork use the same uncropped case treatment. */
+.detail-cover{
+  width:100%;
+  height:auto;
+  aspect-ratio:2/3;
+  object-fit:contain;
+  object-position:center;
+  background:var(--surface2);
+  border-radius:16px;
+}
+.dlc-cover{
+  width:88px;
+  height:auto;
+  aspect-ratio:2/3;
+  object-fit:contain;
+  object-position:center;
+  background:var(--surface2);
+}
+
+@media(max-width:900px){
+  .game-grid{grid-template-columns:repeat(2,1fr)}
+  .home-feature-card{grid-template-columns:150px minmax(0,1fr)}
+  .home-cover{max-height:300px}
+}
+
+@media(max-width:620px){
+  .game-grid{grid-template-columns:1fr}
+  .game-card.has-cover{padding:12px 12px 0}
+  .game-card.has-cover .game-cover{max-width:250px;margin:0 auto}
+  .home-feature-card{grid-template-columns:112px minmax(0,1fr);gap:14px}
+  .home-cover{max-height:240px}
+}
+
+@media(max-width:430px){
+  .home-feature-card{grid-template-columns:96px minmax(0,1fr)}
+  .home-cover{max-height:210px}
+}
