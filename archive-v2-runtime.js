@@ -179,6 +179,5 @@ function init(){
  renderFromFilters();syncCustom(type,true);syncCustom(opt,true);
 }
 window.GAMING_ARCHIVE_V2_UI={buildCustomSelect,syncCustom,closeAllCustom};
-const platformModule=document.createElement('script');platformModule.src='./archive-v2-platforms.js?v=11';platformModule.defer=true;document.head.appendChild(platformModule);
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,50));else setTimeout(init,50);
 })();
