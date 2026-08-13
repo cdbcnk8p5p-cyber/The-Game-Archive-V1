@@ -41,7 +41,8 @@ function renderFromFilters(){
  setTimeout(applyConsoleFilter,0);
 }
 function init(){
- const type=byId('gameFilterType'),opt=byId('gameFilterOption'),search=byId('gameSearch');
+ const type=byId('gameFilterType'),opt=byId('gameFilterOption'),search=byId('gameSearch'),tabs=byId('platformTabs');
+ if(tabs)tabs.style.display='none';
  if(!type||!opt||!window.GAMING_ARCHIVE_FILTERS)return;
  const games=(getState()?.games)||[];
  type.value='';
