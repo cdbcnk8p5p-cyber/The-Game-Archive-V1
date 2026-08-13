@@ -16,26 +16,14 @@ window.GAMING_ARCHIVE_SEED = {
     {id:'ga-mafia', title:'Mafia: The Old Country', series:'Mafia', platform:'Xbox Series X/S', family:'Xbox', format:'Disc', status:'Beaten', startedDate:'', completedDate:'2026-01-25', currentlyPlaying:false, notes:'', cover:'./assets/covers/mafia-old-country.jpg'},
     {id:'ga-gtav', title:'Grand Theft Auto V Enhanced', series:'Grand Theft Auto', platform:'PC', family:'PC', format:'Digital', status:'Beaten', startedDate:'', completedDate:'2026-07-12', currentlyPlaying:false, notes:'Final planned GTA V story completion.', cover:'./assets/covers/gta-v-enhanced.jpg'},
     {id:'ga-waw', title:'Call of Duty: World at War', series:'Call of Duty', platform:'Xbox 360', family:'Xbox', format:'Disc', status:'Beaten', startedDate:'2026-08-09', completedDate:'2026-08-10', currentlyPlaying:false, notes:'Completed on Xbox 360.', cover:'./assets/covers/world-at-war.jpg'},
-    {id:'ga-bo1', title:'Call of Duty: Black Ops', series:'Call of Duty', platform:'Xbox 360', family:'Xbox', format:'Disc', status:'Incomplete', startedDate:'2026-08-10', completedDate:'', currentlyPlaying:true, notes:'Started after completing World at War.', cover:'./assets/covers/black-ops.jpg'}
+    {id:'ga-bo1', title:'Call of Duty: Black Ops', series:'Call of Duty', platform:'Xbox 360', family:'Xbox', format:'Disc', status:'Beaten', startedDate:'2026-08-10', completedDate:'2026-08-13', currentlyPlaying:false, notes:'Completed on Xbox 360.', cover:'./assets/covers/black-ops.jpg'}
   ],
   dlc: [
     {id:'dlc-left-behind', title:'Left Behind', parentGameId:'ga-tlou1', parentGame:'The Last of Us Part I Remastered', platform:'PlayStation 5', status:'Beaten', completedDate:'2025-05-06', notes:'', cover:'./assets/covers/left-behind.jpg'},
     {id:'dlc-swtd', title:'Still Wakes the Deep DLC', parentGameId:'ga-swtd', parentGame:'Still Wakes the Deep', platform:'PlayStation 5', status:'Beaten', completedDate:'', notes:'Completed before the archive was updated; exact date unknown.', cover:'./assets/covers/sirens-rest.jpg'}
   ],
   memories: [
-    {
-      id:'mem-gtav-final',
-      gameId:'ga-gtav',
-      title:'Grand Theft Auto V',
-      date:'2026-07-12',
-      body:[
-        'Today I completed Grand Theft Auto V Enhanced on PC.',
-        'This marks the final time I plan to complete GTA V’s story. After playing it across multiple platforms over the years, I’ve decided this is where that journey ends.',
-        'GTA V has been the game I grew up with. Every replay reminded me why I loved it, and finishing it today feels like closing one chapter before the next begins.',
-        'The next time I experience a brand-new Grand Theft Auto story, it’ll be Grand Theft Auto VI.'
-      ],
-      quote:'Thank you, Los Santos.'
-    }
+    {id:'mem-gtav-final', gameId:'ga-gtav', title:'Grand Theft Auto V', date:'2026-07-12', body:['Today I completed Grand Theft Auto V Enhanced on PC.','This marks the final time I plan to complete GTA V’s story. After playing it across multiple platforms over the years, I’ve decided this is where that journey ends.','GTA V has been the game I grew up with. Every replay reminded me why I loved it, and finishing it today feels like closing one chapter before the next begins.','The next time I experience a brand-new Grand Theft Auto story, it’ll be Grand Theft Auto VI.'], quote:'Thank you, Los Santos.'}
   ],
   hallOfFame: [
     {id:'hof-gtav', gameId:'ga-gtav', rank:1, title:'Grand Theft Auto V', rating:10, reason:'The game I grew up with. Every replay reminded me why I loved gaming.'}
