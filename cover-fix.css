@@ -1,124 +1,33 @@
-/* v1.8 clean cover layout */
-
-/* Cover art should look like the supplied image itself — no fake case/frame around it. */
-.game-card.has-cover{
-  display:flex;
-  flex-direction:column;
-  padding:0;
-  overflow:hidden;
-  min-height:0;
-  background:transparent;
-  border:0;
-  border-radius:0;
-  box-shadow:none;
-}
+/* v1.9 clean cover layout */
+.game-card.has-cover{display:flex;flex-direction:column;padding:0;overflow:hidden;min-height:0;background:transparent;border:0;border-radius:0;box-shadow:none}
 .game-card.has-cover:before{display:none}
-.game-card.has-cover .game-cover{
-  display:block;
-  width:100%;
-  height:auto;
-  aspect-ratio:auto;
-  object-fit:contain;
-  object-position:center;
-  background:transparent;
-  border:0;
-  border-radius:0;
-  box-shadow:none;
-}
-.game-card.has-cover .game-card-copy{
-  padding:14px 2px 18px;
-  align-self:stretch;
-}
-.game-card.has-cover .game-card-copy h3{margin:10px 0 7px}
-
-/* Games without artwork keep the original compact Archive card. */
-.game-card:not(.has-cover){
-  display:block;
-  padding:18px;
-  min-height:165px;
-}
+.game-card.has-cover .game-cover{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain;object-position:center;background:transparent;border:0;border-radius:0;box-shadow:none}
+.game-card.has-cover .game-card-copy{padding:9px 3px 14px;align-self:stretch;display:flex;flex-direction:column;gap:3px}
+.game-card.has-cover .game-card-copy h3{margin:4px 0 3px;line-height:1.2}
+.game-card.has-cover .game-card-copy .badge-row{margin:0 0 2px}
+.game-card.has-cover .game-meta{margin-top:1px;line-height:1.35}
+.game-grid{gap:20px 18px}
+.platform-section{margin-bottom:28px}
+.platform-heading{margin-bottom:11px}
+.game-card:not(.has-cover){display:block;padding:18px;min-height:165px}
 .game-card:not(.has-cover) .game-cover{display:none}
 .game-card:not(.has-cover) .game-card-copy{padding:0}
-
-/* Latest Save / Currently Playing: show the artwork cleanly with no extra frame. */
-.home-feature-card{
-  grid-template-columns:190px minmax(0,1fr);
-  gap:24px;
-  align-items:center;
-}
-.home-cover-wrap{
-  min-height:0;
-  align-self:center;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:transparent;
-  border:0;
-  border-radius:0;
-  box-shadow:none;
-}
-.home-cover{
-  display:block;
-  width:100%;
-  height:auto;
-  max-height:360px;
-  aspect-ratio:auto;
-  object-fit:contain;
-  object-position:center;
-  background:transparent;
-  border:0;
-  border-radius:0;
-  box-shadow:none;
-}
-
-/* Detail view: artwork only, with no decorative case border/shadow. */
-.detail-cover-wrap{
-  background:transparent;
-  border:0;
-  border-radius:0;
-  box-shadow:none;
-}
-.detail-cover{
-  display:block;
-  width:100%;
-  height:auto;
-  aspect-ratio:auto;
-  object-fit:contain;
-  object-position:center;
-  background:transparent;
-  border:0;
-  border-radius:0;
-  box-shadow:none;
-}
-
-/* DLC follows the same clean artwork treatment. */
-.dlc-cover{
-  width:88px;
-  height:auto;
-  aspect-ratio:auto;
-  object-fit:contain;
-  object-position:center;
-  background:transparent;
-  border:0;
-  border-radius:0;
-  box-shadow:none;
-}
-
-@media(max-width:900px){
-  .game-grid{grid-template-columns:repeat(2,1fr)}
-  .home-feature-card{grid-template-columns:150px minmax(0,1fr)}
-  .home-cover{max-height:300px}
-}
-
-@media(max-width:620px){
-  .game-grid{grid-template-columns:1fr}
-  .game-card.has-cover{padding:0}
-  .game-card.has-cover .game-cover{max-width:250px;margin:0 auto}
-  .home-feature-card{grid-template-columns:112px minmax(0,1fr);gap:14px}
-  .home-cover{max-height:240px}
-}
-
-@media(max-width:430px){
-  .home-feature-card{grid-template-columns:96px minmax(0,1fr)}
-  .home-cover{max-height:210px}
-}
+.home-feature-card{grid-template-columns:180px minmax(0,1fr);gap:18px;align-items:center}
+.home-cover-wrap{min-height:0;align-self:center;display:flex;align-items:center;justify-content:center;background:transparent;border:0;border-radius:0;box-shadow:none}
+.home-cover{display:block;width:100%;height:auto;max-height:350px;aspect-ratio:auto;object-fit:contain;object-position:center;background:transparent;border:0;border-radius:0;box-shadow:none}
+.home-feature-card h2,.home-feature-card h3{margin-top:4px;margin-bottom:6px}
+.home-feature-card p{margin-top:4px;margin-bottom:6px;line-height:1.4}
+.home-feature-card .badge-row{margin-bottom:4px}
+.detail-with-cover{gap:20px;align-items:start}
+.detail-cover-wrap{background:transparent;border:0;border-radius:0;box-shadow:none}
+.detail-cover{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain;object-position:center;background:transparent;border:0;border-radius:0;box-shadow:none}
+.detail-copy h2{margin:5px 0 8px}
+.detail-copy .badge-row{margin-bottom:10px}
+.detail-grid{gap:8px;margin-top:10px}
+.dlc-card{gap:14px;align-items:center}
+.dlc-cover{width:88px;height:auto;aspect-ratio:auto;object-fit:contain;object-position:center;background:transparent;border:0;border-radius:0;box-shadow:none}
+.dlc-card h3{margin:4px 0 3px}
+.dlc-card .badge-row{margin-bottom:2px}
+@media(max-width:900px){.game-grid{grid-template-columns:repeat(2,1fr);gap:20px 16px}.home-feature-card{grid-template-columns:145px minmax(0,1fr);gap:16px}.home-cover{max-height:300px}}
+@media(max-width:620px){.game-grid{grid-template-columns:1fr;gap:18px}.game-card.has-cover{padding:0}.game-card.has-cover .game-cover{max-width:250px;margin:0 auto}.game-card.has-cover .game-card-copy{padding-top:8px}.home-feature-card{grid-template-columns:108px minmax(0,1fr);gap:12px}.home-cover{max-height:240px}.detail-with-cover{gap:14px}.platform-section{margin-bottom:24px}}
+@media(max-width:430px){.home-feature-card{grid-template-columns:94px minmax(0,1fr);gap:10px}.home-cover{max-height:210px}}
