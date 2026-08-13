@@ -3,7 +3,24 @@
 const KEY='the-gaming-archive-v1';
 const getState=()=>{try{return JSON.parse(localStorage.getItem(KEY))||window.GAMING_ARCHIVE_SEED}catch{return window.GAMING_ARCHIVE_SEED}};
 const byId=id=>document.getElementById(id);
+const finished=g=>g&&(g.status==='Beaten'||g.status==='Completed');
+const icon=f=>({Nintendo:'🔴',PC:'🖥️',PlayStation:'🟦',Xbox:'🟩'})[f]||'🎮';
 function oldFamilyButton(name){return [...document.querySelectorAll('#platformTabs button')].find(b=>b.dataset.family===name)}
+function refreshSectionSummaries(games,family,choice){
+ document.querySelectorAll('.platform-section').forEach(section=>{
+  const visible=[...section.querySelectorAll('.game-card')].filter(c=>c.style.display!=='none');
+  if(!visible.length){section.style.display='none';return}
+  section.style.display='';
+  const entries=visible.map(c=>games.find(g=>g.id===c.dataset.id)).filter(Boolean);
+  const total=entries.length;
+  const beaten=entries.filter(finished).length;
+  const rate=total?Math.round(beaten/total*1000)/10:0;
+  const summary=section.querySelector('.platform-summary');
+  if(summary)summary.textContent=`${total} ${total===1?'game':'games'} • ${beaten} beaten • ${rate}% story completion`;
+  const heading=section.querySelector('.platform-heading h2');
+  if(heading&&family&&choice&&entries.every(g=>g.family===family))heading.textContent=`${icon(family)} ${choice}`;
+ });
+}
 function applyConsoleFilter(){
  const type=byId('gameFilterType'),opt=byId('gameFilterOption');
  if(!type||!opt)return;
@@ -19,9 +36,7 @@ function applyConsoleFilter(){
   }
   card.style.display=show?'':'none';
  });
- document.querySelectorAll('.platform-section').forEach(section=>{
-  section.style.display=[...section.querySelectorAll('.game-card')].some(c=>c.style.display!=='none')?'':'none';
- });
+ refreshSectionSummaries(games,family,choice);
 }
 function renderFromFilters(){
  const type=byId('gameFilterType'),opt=byId('gameFilterOption'),legacy=byId('gameStatusFilter');
