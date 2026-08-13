@@ -16,13 +16,14 @@ function ensureSegaOption(type){
  type.insertBefore(option,xbox||null);
 }
 function setFilterTheme(value){
- const bar=document.querySelector('.archive-filterbar');
+ const bar=document.querySelector('#games .archive-filterbar');
  if(bar)bar.dataset.filter=value||'none';
  syncCustomTheme();
 }
 function customTheme(select){
- if(select.id==='gameFilterType')return select.value||'none';
- return byId('gameFilterType')?.value||'none';
+ if(select.id.endsWith('FilterType'))return select.value||'none';
+ const typeId=select.id.startsWith('dlc')?'dlcFilterType':'gameFilterType';
+ return byId(typeId)?.value||'none';
 }
 function closeCustom(api){
  if(!api)return;
@@ -177,5 +178,7 @@ function init(){
  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAllCustom()});
  renderFromFilters();syncCustom(type,true);syncCustom(opt,true);
 }
+window.GAMING_ARCHIVE_V2_UI={buildCustomSelect,syncCustom,closeAllCustom};
+const platformModule=document.createElement('script');platformModule.src='./archive-v2-platforms.js?v=11';platformModule.defer=true;document.head.appendChild(platformModule);
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,50));else setTimeout(init,50);
 })();
