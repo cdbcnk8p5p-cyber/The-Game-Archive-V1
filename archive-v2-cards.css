@@ -36,11 +36,15 @@ body,body.light{--bg:#fff;--bg2:#fff;--surface:#f7f7f9;--surface2:#f3f4f6;--surf
   .game-card.has-cover .game-card-copy h3{font-size:.78rem}
   .game-card.has-cover .game-meta{font-size:.66rem}
 }
-/* v2.26 aligned mobile cover cards */
+/* v2.27 natural-ratio masonry mobile game browsing */
 @media(max-width:620px){
-  .game-card.has-cover .game-cover{width:100%!important;height:auto!important;aspect-ratio:2 / 3!important;object-fit:contain!important;object-position:center!important;background:#fff!important}
-  .game-card.has-cover .game-card-copy{height:126px!important;min-height:126px!important;overflow:hidden}
+  .game-grid{display:block!important;column-count:2;column-gap:12px!important}
+  .game-card.has-cover{display:inline-flex!important;width:100%!important;max-width:none!important;min-width:0;margin:0 0 18px!important;break-inside:avoid;page-break-inside:avoid;vertical-align:top}
+  .game-card.has-cover .game-cover{width:100%!important;height:auto!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;background:transparent!important}
+  .game-card.has-cover .game-card-copy{height:auto!important;min-height:0!important;overflow:visible!important}
+  .game-card:not(.has-cover){display:inline-block;width:100%;margin:0 0 18px;break-inside:avoid;page-break-inside:avoid}
 }
 @media(max-width:360px){
-  .game-card.has-cover .game-card-copy{height:132px!important;min-height:132px!important}
+  .game-grid{column-gap:9px!important}
+  .game-card.has-cover,.game-card:not(.has-cover){margin-bottom:16px!important}
 }
