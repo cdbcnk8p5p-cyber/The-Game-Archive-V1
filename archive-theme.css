@@ -1,4 +1,4 @@
-/* v2.33 unified light / dark theme layer */
+/* v2.34 unified light / dark theme layer */
 html{background:#0f1722!important;color-scheme:dark}
 html:has(body.light){background:#fff!important;color-scheme:light}
 html body{
@@ -42,7 +42,6 @@ html body .v2-custom-menu{background:var(--menu-bg)!important;border-color:var(-
 html body .v2-custom-option{background:var(--menu-bg);color:var(--text)}
 html body .v2-custom-option:hover,html body .v2-custom-option:focus,html body .v2-custom-option.selected{background:var(--menu-hover);outline:none}
 html body .v2-custom-select[data-kind="option"] .v2-custom-option{color:var(--text)!important}
-html body .v2-custom-select[data-kind="option"] .v2-custom-trigger{color:var(--text)!important}
 html body:not(.light) .v2-custom-select[data-kind="type"] .v2-custom-option[data-option-theme="Sega"]{background:#111!important;color:#fff!important}
 html body .game-card.has-cover .game-card-copy{background:var(--panel-attached)!important;color:var(--text)!important;box-shadow:var(--panel-shadow)!important}
 html body .game-card.has-cover .game-meta{color:var(--text)!important}
@@ -65,6 +64,14 @@ html body .toolbar input,html body .toolbar select,html body .form-grid input,ht
 html body .ghost-btn{background:transparent!important;color:var(--text)!important;border-color:var(--line)!important}
 html body.light .primary-btn{color:#fff}
 html body footer{color:var(--muted)}
+/* v2.34 filter contrast refinements */
+html body .toolbar.archive-filterbar input[type="search"],html body #dlcFilterBar input[type="search"]{border:2px solid var(--filter-trim)!important;box-shadow:0 0 0 1px color-mix(in srgb,var(--filter-trim) 22%,transparent),0 4px 12px rgba(0,0,0,.12)!important}
+html body .v2-custom-select[data-kind="option"][data-theme="Nintendo"] .v2-custom-trigger{background:#e60012!important;color:#fff!important}
+html body .v2-custom-select[data-kind="option"][data-theme="PC"] .v2-custom-trigger{background:#d4af37!important;color:#171717!important}
+html body .v2-custom-select[data-kind="option"][data-theme="PlayStation"] .v2-custom-trigger{background:#003791!important;color:#fff!important}
+html body .v2-custom-select[data-kind="option"][data-theme="Sega"] .v2-custom-trigger{background:#111!important;color:#fff!important}
+html body .v2-custom-select[data-kind="option"][data-theme="Xbox"] .v2-custom-trigger{background:#107c10!important;color:#fff!important}
+html body .v2-custom-select[data-kind="option"][data-theme="status"] .v2-custom-trigger{background:#e75480!important;color:#fff!important}
 @media(max-width:620px){
   html body .v2-custom-menu{background:var(--menu-bg)!important}
   html body .game-card.has-cover .game-card-copy,html body #archiveDlcPane .dlc-card.v2-dlc-card .game-card-copy{box-shadow:var(--panel-shadow)!important}
