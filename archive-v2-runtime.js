@@ -103,6 +103,26 @@ function buildCustomSelect(select,kind){
  });
  select.addEventListener('change',()=>syncCustom(select,true));
 }
+function updateMainSummary(){
+ const summary=byId('mainSummary'),sections=byId('gameSections');
+ if(!summary||!sections)return;
+ const state=getState(),games=state?.games||[];
+ const visible=[...sections.querySelectorAll('.game-card')].filter(card=>card.style.display!=='none');
+ const entries=visible.map(card=>games.find(g=>g.id===card.dataset.id)).filter(Boolean);
+ const total=entries.length,beaten=entries.filter(finished).length,rate=total?Math.round(beaten/total*1000)/10:0;
+ const search=byId('gameSearch'),type=byId('gameFilterType'),opt=byId('gameFilterOption');
+ const active=!!(search?.value.trim()||type?.value||opt?.value);
+ summary.innerHTML=`<article><small>${active?'Shown games':'Total games'}</small><strong>${total}</strong><span>${active?'matching entries':'main-game entries'}</span></article><article><small>Beaten</small><strong>${beaten}</strong><span>main stories finished</span></article><article><small>Story completion</small><strong>${rate}%</strong><span>main games only</span></article>`;
+}
+function ensureMainSummary(){
+ let summary=byId('mainSummary');
+ if(!summary){
+  summary=document.createElement('div');summary.id='mainSummary';summary.className='stat-grid compact archive-main-summary';
+  const filter=document.querySelector('#archiveMainPane .archive-filterbar')||document.querySelector('#games .archive-filterbar');
+  if(filter)filter.insertAdjacentElement('afterend',summary);
+ }
+ updateMainSummary();
+}
 function refreshSectionSummaries(games,family,choice){
  document.querySelectorAll('.platform-section').forEach(section=>{
   const visible=[...section.querySelectorAll('.game-card')].filter(c=>c.style.display!=='none');
@@ -137,6 +157,7 @@ function applyConsoleFilter(){
   card.style.display=show?'':'none';
  });
  refreshSectionSummaries(games,family,choice);
+ updateMainSummary();
 }
 function renderFromFilters(){
  const type=byId('gameFilterType'),opt=byId('gameFilterOption'),legacy=byId('gameStatusFilter');
@@ -196,6 +217,7 @@ function switchArchiveMode(mode){
   btn.classList.toggle('active',active);
   btn.setAttribute('aria-selected',active?'true':'false');
  });
+ if(archiveMode==='main')updateMainSummary();
  closeAllCustom();
 }
 function installArchiveSwitcher(){
@@ -217,6 +239,9 @@ function installArchiveSwitcher(){
  [byId('dlcSummary'),byId('dlcList')].filter(Boolean).forEach(el=>dlcPane.append(el));
  gamesPage.querySelector('.page-title')?.insertAdjacentElement('afterend',tabs);
  tabs.insertAdjacentElement('afterend',mainPane);mainPane.insertAdjacentElement('afterend',dlcPane);
+ ensureMainSummary();
+ const gameSections=byId('gameSections');
+ if(gameSections)new MutationObserver(()=>setTimeout(()=>{applyConsoleFilter();updateMainSummary()},0)).observe(gameSections,{childList:true,subtree:true});
  const gamesNav=document.querySelector('#drawer [data-page="games"]'),dlcNav=document.querySelector('#drawer [data-page="dlc"]');
  if(gamesNav)gamesNav.textContent='🎮 The Archive';
  if(dlcNav)dlcNav.style.display='none';
