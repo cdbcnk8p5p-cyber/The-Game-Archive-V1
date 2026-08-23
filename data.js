@@ -22,7 +22,7 @@ window.GAMING_ARCHIVE_SEED = {
   ],
   dlc: [
     {id:'dlc-left-behind', title:'Left Behind', parentGameId:'ga-tlou1', parentGame:'The Last of Us Part I Remastered', platform:'PlayStation 5', status:'Beaten', completedDate:'2025-05-06', notes:'', cover:'./assets/covers/left-behind.jpg'},
-    {id:'dlc-swtd', title:'Still Wakes the Deep DLC', parentGameId:'ga-swtd', parentGame:'Still Wakes the Deep', platform:'PlayStation 5', status:'Beaten', completedDate:'', notes:'Completed before the archive was updated; exact date unknown.', cover:'./assets/covers/sirens-rest.jpg'}
+    {id:'dlc-swtd', title:'Still Wakes the Deep: Sirens Rest', parentGameId:'ga-swtd', parentGame:'Still Wakes the Deep', platform:'PlayStation 5', status:'Beaten', completedDate:'', notes:'Completed before the archive was updated; exact date unknown.', cover:'./assets/covers/sirens-rest.jpg'}
   ],
   memories: [
     {id:'mem-gtav-final', gameId:'ga-gtav', title:'Grand Theft Auto V', date:'2026-07-12', body:['Today I completed Grand Theft Auto V Enhanced on PC.','This marks the final time I plan to complete GTA V’s story. After playing it across multiple platforms over the years, I’ve decided this is where that journey ends.','GTA V has been the game I grew up with. Every replay reminded me why I loved it, and finishing it today feels like closing one chapter before the next begins.','The next time I experience a brand-new Grand Theft Auto story, it’ll be Grand Theft Auto VI.'], quote:'Thank you, Los Santos.'}
