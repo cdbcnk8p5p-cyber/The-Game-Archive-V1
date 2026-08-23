@@ -1,0 +1,28 @@
+/* v2.30 DLC cards mirror main-game browsing cards */
+#archiveDlcPane #dlcList{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:30px 24px!important;align-items:start!important}
+#archiveDlcPane .dlc-card.v2-dlc-card{width:min(100%,260px)!important;max-width:260px!important;min-width:0!important;min-height:0!important;justify-self:center!important;align-self:start!important;display:flex!important;flex-direction:column!important;gap:0!important;padding:0!important;margin:0!important;overflow:visible!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;color:var(--text)!important;text-align:left!important;cursor:pointer!important;transition:transform .18s ease!important}
+#archiveDlcPane .dlc-card.v2-dlc-card:hover{transform:translateY(-3px)}
+#archiveDlcPane .dlc-card.v2-dlc-card .dlc-cover{display:block!important;width:100%!important;max-width:none!important;height:auto!important;max-height:none!important;aspect-ratio:auto!important;margin:0!important;object-fit:contain!important;object-position:center!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+#archiveDlcPane .dlc-card.v2-dlc-card .game-card-copy{width:100%!important;align-self:stretch!important;display:flex!important;flex-direction:column!important;gap:4px!important;margin:0!important;padding:13px 14px 15px!important;background:#d9dde2!important;border:0!important;border-radius:0 0 16px 16px!important;box-shadow:0 12px 28px rgba(17,24,39,.11)!important;text-align:left!important}
+#archiveDlcPane .dlc-card.v2-dlc-card .game-card-copy h3{font-size:1.05rem!important;margin:5px 0 3px!important;line-height:1.22!important;letter-spacing:-.01em!important}
+#archiveDlcPane .dlc-card.v2-dlc-card .game-card-copy .badge-row{margin:0 0 3px!important}
+#archiveDlcPane .dlc-card.v2-dlc-card .game-meta{font-size:.82rem!important;line-height:1.4!important;margin:0!important;color:#5f6773!important}
+#archiveDlcPane .dlc-card.v2-dlc-card .badge{background:#fff!important;border-color:#d5dae0!important}
+#archiveDlcPane .dlc-card.v2-dlc-card .dlc-edit{display:none!important}
+#archiveDlcPane .dlc-card.v2-dlc-card:focus-visible{outline:3px solid rgba(79,126,163,.28)!important;outline-offset:5px!important}
+@media(max-width:900px){#archiveDlcPane #dlcList{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:28px 20px!important}}
+@media(max-width:620px){
+ #archiveDlcPane #dlcList{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-flow:row!important;gap:18px 12px!important;align-items:start!important}
+ #archiveDlcPane .dlc-card.v2-dlc-card{width:100%!important;max-width:none!important}
+ #archiveDlcPane .dlc-card.v2-dlc-card .game-card-copy{padding:9px 10px 11px!important;gap:2px!important;border-radius:0 0 13px 13px!important;box-shadow:0 8px 20px rgba(17,24,39,.10)!important}
+ #archiveDlcPane .dlc-card.v2-dlc-card .game-card-copy .badge-row{margin-bottom:2px!important}
+ #archiveDlcPane .dlc-card.v2-dlc-card .badge{padding:3px 6px!important;font-size:.61rem!important}
+ #archiveDlcPane .dlc-card.v2-dlc-card .game-card-copy h3{font-size:.84rem!important;line-height:1.18!important;margin:3px 0!important;display:-webkit-box!important;-webkit-line-clamp:3!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
+ #archiveDlcPane .dlc-card.v2-dlc-card .game-meta{font-size:.70rem!important;line-height:1.3!important}
+}
+@media(max-width:360px){
+ #archiveDlcPane #dlcList{gap:16px 9px!important}
+ #archiveDlcPane .dlc-card.v2-dlc-card .game-card-copy{padding:8px 8px 10px!important}
+ #archiveDlcPane .dlc-card.v2-dlc-card .game-card-copy h3{font-size:.78rem!important}
+ #archiveDlcPane .dlc-card.v2-dlc-card .game-meta{font-size:.66rem!important}
+}
