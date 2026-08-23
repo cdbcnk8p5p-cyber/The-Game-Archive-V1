@@ -13,3 +13,5 @@ body,body.light{--bg:#fff;--bg2:#fff;--surface:#f7f7f9;--surface2:#f3f4f6;--surf
 @media(max-width:900px){.game-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 20px}}
 @media(max-width:700px){.archive-filterbar{display:grid;grid-template-columns:1fr}.archive-filterbar input,.archive-filterbar select,.v2-custom-select{width:100%;min-width:0}.archive-cover-shell{min-height:180px}.archive-adaptive-cover{max-height:360px}.v2-custom-menu{position:relative;top:6px;margin-bottom:8px;max-height:280px}}
 @media(max-width:620px){.game-grid{grid-template-columns:1fr;gap:24px}.game-card.has-cover{width:min(100%,270px);max-width:270px}.game-card.has-cover .game-card-copy{padding:12px 13px 14px}}
+/* v2.19 iPhone safe-area navigation */
+.topbar{height:calc(72px + env(safe-area-inset-top,0px))!important;min-height:calc(72px + env(safe-area-inset-top,0px))!important;padding:env(safe-area-inset-top,0px) 22px 0!important;top:0!important}.topbar .round-btn{min-width:44px;min-height:44px;touch-action:manipulation}.drawer{padding-top:calc(18px + env(safe-area-inset-top,0px))!important;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))!important}
