@@ -48,3 +48,14 @@ body,body.light{--bg:#fff;--bg2:#fff;--surface:#f7f7f9;--surface2:#f3f4f6;--surf
   .game-grid{column-gap:9px!important}
   .game-card.has-cover,.game-card:not(.has-cover){margin-bottom:16px!important}
 }
+/* v2.28 row-aligned natural-ratio mobile browsing */
+@media(max-width:620px){
+  .game-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-flow:row!important;column-count:initial!important;column-gap:12px!important;row-gap:18px!important;align-items:start!important}
+  .game-card.has-cover{display:flex!important;width:100%!important;max-width:none!important;min-width:0;margin:0!important;break-inside:auto!important;page-break-inside:auto!important;align-self:start!important}
+  .game-card.has-cover .game-cover{width:100%!important;height:auto!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;background:transparent!important}
+  .game-card.has-cover .game-card-copy{height:auto!important;min-height:0!important;overflow:visible!important}
+  .game-card:not(.has-cover){display:block!important;width:100%!important;margin:0!important;break-inside:auto!important;page-break-inside:auto!important;align-self:start!important}
+}
+@media(max-width:360px){
+  .game-grid{column-gap:9px!important;row-gap:16px!important}
+}
