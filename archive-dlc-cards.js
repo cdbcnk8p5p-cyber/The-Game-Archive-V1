@@ -6,6 +6,7 @@ const getState=()=>{try{return JSON.parse(localStorage.getItem(KEY))||window.GAM
 const finished=x=>x&&(x.status==='Beaten'||x.status==='Completed');
 const statusClass=s=>finished({status:s})?'good':s==='Incomplete'?'warn':'';
 const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+function ensureStyles(){if(document.getElementById('archiveDlcCardStyles'))return;const link=document.createElement('link');link.id='archiveDlcCardStyles';link.rel='stylesheet';link.href='./archive-dlc-cards.css?v=30';document.head.appendChild(link)}
 function fmtDate(v){if(!v)return'Unknown';const d=new Date(v+'T12:00:00');return Number.isNaN(d.getTime())?v:new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'2-digit',year:'numeric'}).format(d)}
 function openDlc(id){
  const state=getState(),d=(state.dlc||[]).find(x=>x.id===id);if(!d)return;
@@ -32,6 +33,6 @@ function upgradeAll(){
  const state=getState(),dlc=state.dlc||[],list=byId('dlcList');if(!list)return;
  [...list.querySelectorAll('.dlc-card')].forEach((card,i)=>upgradeCard(card,dlc[i]));
 }
-function init(){const list=byId('dlcList');if(!list)return;upgradeAll();new MutationObserver(()=>setTimeout(upgradeAll,0)).observe(list,{childList:true})}
+function init(){ensureStyles();const list=byId('dlcList');if(!list)return;upgradeAll();new MutationObserver(()=>setTimeout(upgradeAll,0)).observe(list,{childList:true})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,120));else setTimeout(init,120);
 })();
