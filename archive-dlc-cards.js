@@ -8,7 +8,7 @@ const statusClass=s=>finished({status:s})?'good':s==='Incomplete'?'warn':'';
 const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 function ensureStyles(){if(document.getElementById('archiveDlcCardStyles'))return;const link=document.createElement('link');link.id='archiveDlcCardStyles';link.rel='stylesheet';link.href='./archive-dlc-cards.css?v=30';document.head.appendChild(link)}
 function ensureThemeAssets(){
- if(!document.getElementById('archiveThemeStyles')){const link=document.createElement('link');link.id='archiveThemeStyles';link.rel='stylesheet';link.href='./archive-theme.css?v=34';document.head.appendChild(link)}
+ if(!document.getElementById('archiveThemeStyles')){const link=document.createElement('link');link.id='archiveThemeStyles';link.rel='stylesheet';link.href='./archive-theme.css?v=35';document.head.appendChild(link)}
  if(!document.getElementById('archiveThemeScript')){const script=document.createElement('script');script.id='archiveThemeScript';script.src='./archive-theme.js?v=32';document.body.appendChild(script)}
 }
 function fmtDate(v){if(!v)return'Unknown';const d=new Date(v+'T12:00:00');return Number.isNaN(d.getTime())?v:new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'2-digit',year:'numeric'}).format(d)}
