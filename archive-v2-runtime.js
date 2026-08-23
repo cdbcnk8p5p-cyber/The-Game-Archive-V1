@@ -155,6 +155,36 @@ function renderFromFilters(){
  }
  setTimeout(applyConsoleFilter,0);
 }
+function completedForLinks(){return ((getState()?.games)||[]).filter(finished).filter(g=>g.completedDate).sort((a,b)=>a.completedDate.localeCompare(b.completedDate))}
+function setGameLaunch(el,game){
+ if(!el)return;
+ if(game){el.dataset.openGameId=game.id;el.classList.add('v2-game-launch');el.setAttribute('aria-label',`Open ${game.title}`)}
+ else{delete el.dataset.openGameId;el.classList.remove('v2-game-launch');el.removeAttribute('aria-label')}
+}
+function bindGameLaunches(){
+ const state=getState(),games=state?.games||[],playing=games.filter(g=>g.currentlyPlaying),completed=completedForLinks();
+ setGameLaunch(byId('playingTitle')?.closest('.home-feature-card'),playing[0]||null);
+ setGameLaunch(byId('latestSaveTitle')?.closest('.home-feature-card'),completed.at(-1)||null);
+ const homeMilestone=completed[9]||completed[0]||null;
+ setGameLaunch(byId('homeMilestoneTitle')?.closest('.panel'),homeMilestone);
+ const marks=[1,10,25,50,100];
+ [...document.querySelectorAll('#milestoneList .milestone-card')].forEach((card,i)=>setGameLaunch(card,completed[marks[i]-1]||null));
+}
+function launchGame(id){
+ const card=[...document.querySelectorAll('.game-card')].find(c=>c.dataset.id===id);
+ if(card){card.click();return true}
+ return false;
+}
+function installGameLaunches(){
+ bindGameLaunches();
+ document.addEventListener('click',e=>{
+  const launch=e.target.closest?.('[data-open-game-id]');if(!launch)return;
+  const nested=e.target.closest?.('button,a,input,select,textarea,label');
+  if(nested&&nested!==launch&&launch.contains(nested))return;
+  launchGame(launch.dataset.openGameId);
+ });
+ [byId('home'),byId('milestoneList')].filter(Boolean).forEach(root=>new MutationObserver(()=>setTimeout(bindGameLaunches,0)).observe(root,{childList:true,subtree:true,characterData:true}));
+}
 function init(){
  const type=byId('gameFilterType'),opt=byId('gameFilterOption'),search=byId('gameSearch'),tabs=byId('platformTabs');
  if(tabs)tabs.style.display='none';
@@ -176,7 +206,7 @@ function init(){
  search?.addEventListener('input',()=>setTimeout(applyConsoleFilter,0));
  document.addEventListener('pointerdown',e=>{customSelects.forEach(api=>{if(!api.wrapper.contains(e.target))closeCustom(api)})});
  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAllCustom()});
- renderFromFilters();syncCustom(type,true);syncCustom(opt,true);
+ renderFromFilters();syncCustom(type,true);syncCustom(opt,true);installGameLaunches();
 }
 window.GAMING_ARCHIVE_V2_UI={buildCustomSelect,syncCustom,closeAllCustom};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,50));else setTimeout(init,50);
