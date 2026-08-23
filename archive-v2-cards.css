@@ -36,3 +36,11 @@ body,body.light{--bg:#fff;--bg2:#fff;--surface:#f7f7f9;--surface2:#f3f4f6;--surf
   .game-card.has-cover .game-card-copy h3{font-size:.78rem}
   .game-card.has-cover .game-meta{font-size:.66rem}
 }
+/* v2.26 aligned mobile cover cards */
+@media(max-width:620px){
+  .game-card.has-cover .game-cover{width:100%!important;height:auto!important;aspect-ratio:2 / 3!important;object-fit:contain!important;object-position:center!important;background:#fff!important}
+  .game-card.has-cover .game-card-copy{height:126px!important;min-height:126px!important;overflow:hidden}
+}
+@media(max-width:360px){
+  .game-card.has-cover .game-card-copy{height:132px!important;min-height:132px!important}
+}
