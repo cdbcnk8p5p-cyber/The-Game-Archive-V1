@@ -7,6 +7,7 @@ const finished=g=>g&&(g.status==='Beaten'||g.status==='Completed');
 const FILTER_FAMILIES=['Nintendo','PC','PlayStation','Sega','Xbox'];
 const icon=f=>({Nintendo:'🔴',PC:'🖥️',PlayStation:'🟦',Sega:'⚫',Xbox:'🟩'})[f]||'🎮';
 const customSelects=new Map();
+let archiveMode='main';
 function oldFamilyButton(name){return [...document.querySelectorAll('#platformTabs button')].find(b=>b.dataset.family===name)}
 function ensureSegaOption(type){
  if(!type||[...type.options].some(o=>o.value==='Sega'))return;
@@ -185,6 +186,45 @@ function installGameLaunches(){
  });
  [byId('home'),byId('milestoneList')].filter(Boolean).forEach(root=>new MutationObserver(()=>setTimeout(bindGameLaunches,0)).observe(root,{childList:true,subtree:true,characterData:true}));
 }
+function switchArchiveMode(mode){
+ archiveMode=mode==='dlc'?'dlc':'main';
+ const mainPane=byId('archiveMainPane'),dlcPane=byId('archiveDlcPane');
+ if(mainPane)mainPane.hidden=archiveMode!=='main';
+ if(dlcPane)dlcPane.hidden=archiveMode!=='dlc';
+ document.querySelectorAll('#archiveModeTabs button').forEach(btn=>{
+  const active=btn.dataset.archiveMode===archiveMode;
+  btn.classList.toggle('active',active);
+  btn.setAttribute('aria-selected',active?'true':'false');
+ });
+ closeAllCustom();
+}
+function installArchiveSwitcher(){
+ const gamesPage=byId('games'),dlcPage=byId('dlc');
+ if(!gamesPage||!dlcPage||byId('archiveModeTabs'))return;
+ const heading=gamesPage.querySelector('.page-title h1'),copy=gamesPage.querySelector('.page-title p');
+ if(heading)heading.textContent='The Archive';
+ if(copy)copy.textContent='Browse every tracked main game and DLC entry in one place.';
+ const tabs=document.createElement('div');
+ tabs.id='archiveModeTabs';tabs.className='archive-mode-tabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Archive section');
+ const mainBtn=document.createElement('button');mainBtn.type='button';mainBtn.dataset.archiveMode='main';mainBtn.innerHTML='<span aria-hidden="true">🎮</span> Main Games';mainBtn.setAttribute('role','tab');
+ const dlcBtn=document.createElement('button');dlcBtn.type='button';dlcBtn.dataset.archiveMode='dlc';dlcBtn.innerHTML='<span aria-hidden="true">🧩</span> DLC';dlcBtn.setAttribute('role','tab');
+ tabs.append(mainBtn,dlcBtn);
+ const mainPane=document.createElement('div');mainPane.id='archiveMainPane';mainPane.className='archive-mode-pane';
+ const mainNote=document.createElement('p');mainNote.className='archive-mode-note';mainNote.textContent='Main games count towards story totals, milestones and Save Files.';mainPane.append(mainNote);
+ [gamesPage.querySelector('.archive-filterbar'),byId('platformTabs'),byId('gameSections')].filter(Boolean).forEach(el=>mainPane.append(el));
+ const dlcPane=document.createElement('div');dlcPane.id='archiveDlcPane';dlcPane.className='archive-mode-pane';dlcPane.hidden=true;
+ const dlcNote=document.createElement('p');dlcNote.className='archive-mode-note';dlcNote.textContent='DLC stays separate and never inflates your main-game totals.';dlcPane.append(dlcNote);
+ [byId('dlcSummary'),byId('dlcList')].filter(Boolean).forEach(el=>dlcPane.append(el));
+ gamesPage.querySelector('.page-title')?.insertAdjacentElement('afterend',tabs);
+ tabs.insertAdjacentElement('afterend',mainPane);mainPane.insertAdjacentElement('afterend',dlcPane);
+ const gamesNav=document.querySelector('#drawer [data-page="games"]'),dlcNav=document.querySelector('#drawer [data-page="dlc"]');
+ if(gamesNav)gamesNav.textContent='🎮 The Archive';
+ if(dlcNav)dlcNav.style.display='none';
+ mainBtn.addEventListener('click',()=>switchArchiveMode('main'));
+ dlcBtn.addEventListener('click',()=>switchArchiveMode('dlc'));
+ dlcPage.style.display='none';
+ switchArchiveMode('main');
+}
 function init(){
  const type=byId('gameFilterType'),opt=byId('gameFilterOption'),search=byId('gameSearch'),tabs=byId('platformTabs');
  if(tabs)tabs.style.display='none';
@@ -206,8 +246,8 @@ function init(){
  search?.addEventListener('input',()=>setTimeout(applyConsoleFilter,0));
  document.addEventListener('pointerdown',e=>{customSelects.forEach(api=>{if(!api.wrapper.contains(e.target))closeCustom(api)})});
  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAllCustom()});
- renderFromFilters();syncCustom(type,true);syncCustom(opt,true);installGameLaunches();
+ renderFromFilters();syncCustom(type,true);syncCustom(opt,true);installGameLaunches();installArchiveSwitcher();
 }
-window.GAMING_ARCHIVE_V2_UI={buildCustomSelect,syncCustom,closeAllCustom};
+window.GAMING_ARCHIVE_V2_UI={buildCustomSelect,syncCustom,closeAllCustom,switchArchiveMode};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,50));else setTimeout(init,50);
 })();
