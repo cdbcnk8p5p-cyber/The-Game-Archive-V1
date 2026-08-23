@@ -1,4 +1,4 @@
-const CACHE='gaming-archive-v2-30';
+const CACHE='gaming-archive-v2-31';
 const ASSETS=['./','./index.html','./styles.css','./cover-fix.css?v=29','./archive-v2-cards.css?v=28','./archive-dlc-cards.css?v=30','./data.js?v=24','./archive-v2-loader.js?v=24','./archive-filters.js?v=11','./app.js?v=5','./archive-v2-runtime.js?v=23','./archive-dlc-cards.js?v=30','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',e=>e.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))])));
