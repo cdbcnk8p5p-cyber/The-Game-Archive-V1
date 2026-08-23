@@ -1,4 +1,4 @@
-/* v2.34 unified light / dark theme layer */
+/* v2.35 unified light / dark theme layer */
 html{background:#0f1722!important;color-scheme:dark}
 html:has(body.light){background:#fff!important;color-scheme:light}
 html body{
@@ -64,15 +64,24 @@ html body .toolbar input,html body .toolbar select,html body .form-grid input,ht
 html body .ghost-btn{background:transparent!important;color:var(--text)!important;border-color:var(--line)!important}
 html body.light .primary-btn{color:#fff}
 html body footer{color:var(--muted)}
-/* v2.34 filter contrast refinements */
+/* permanent Archive gold trim */
 html body .toolbar.archive-filterbar input[type="search"],html body #dlcFilterBar input[type="search"]{border:2px solid var(--filter-trim)!important;box-shadow:0 0 0 1px color-mix(in srgb,var(--filter-trim) 22%,transparent),0 4px 12px rgba(0,0,0,.12)!important}
-html body .v2-custom-select[data-kind="option"][data-theme="Nintendo"] .v2-custom-trigger{background:#e60012!important;color:#fff!important}
-html body .v2-custom-select[data-kind="option"][data-theme="PC"] .v2-custom-trigger{background:#d4af37!important;color:#171717!important}
-html body .v2-custom-select[data-kind="option"][data-theme="PlayStation"] .v2-custom-trigger{background:#003791!important;color:#fff!important}
-html body .v2-custom-select[data-kind="option"][data-theme="Sega"] .v2-custom-trigger{background:#111!important;color:#fff!important}
-html body .v2-custom-select[data-kind="option"][data-theme="Xbox"] .v2-custom-trigger{background:#107c10!important;color:#fff!important}
-html body .v2-custom-select[data-kind="option"][data-theme="status"] .v2-custom-trigger{background:#e75480!important;color:#fff!important}
+/* closed filter controls mirror the selected family */
+html body .v2-custom-select[data-theme="Nintendo"] .v2-custom-trigger{background:#e60012!important;color:#fff!important}
+html body .v2-custom-select[data-theme="PC"] .v2-custom-trigger{background:#d4af37!important;color:#171717!important}
+html body .v2-custom-select[data-theme="PlayStation"] .v2-custom-trigger{background:#003791!important;color:#fff!important}
+html body .v2-custom-select[data-theme="Sega"] .v2-custom-trigger{background:#111!important;color:#fff!important}
+html body .v2-custom-select[data-theme="Xbox"] .v2-custom-trigger{background:#107c10!important;color:#fff!important}
+html body .v2-custom-select[data-theme="status"] .v2-custom-trigger{background:#e75480!important;color:#fff!important}
+/* v2.35 expanded menus now mirror the selected family exactly */
+html body .v2-custom-select[data-theme="Nintendo"] .v2-custom-menu,html body .v2-custom-select[data-theme="Nintendo"] .v2-custom-option{background:#e60012!important;color:#fff!important}
+html body .v2-custom-select[data-theme="PlayStation"] .v2-custom-menu,html body .v2-custom-select[data-theme="PlayStation"] .v2-custom-option{background:#003791!important;color:#fff!important}
+html body .v2-custom-select[data-theme="Xbox"] .v2-custom-menu,html body .v2-custom-select[data-theme="Xbox"] .v2-custom-option{background:#107c10!important;color:#fff!important}
+html body .v2-custom-select[data-theme="Sega"] .v2-custom-menu,html body .v2-custom-select[data-theme="Sega"] .v2-custom-option{background:#111!important;color:#fff!important}
+html body .v2-custom-select[data-theme="status"] .v2-custom-menu,html body .v2-custom-select[data-theme="status"] .v2-custom-option{background:#e75480!important;color:#fff!important}
+html body .v2-custom-select[data-theme="PC"] .v2-custom-menu,html body .v2-custom-select[data-theme="PC"] .v2-custom-option{background:#d4af37!important;color:#171717!important}
+html body .v2-custom-select[data-theme="Nintendo"] .v2-custom-option:hover,html body .v2-custom-select[data-theme="Nintendo"] .v2-custom-option:focus,html body .v2-custom-select[data-theme="Nintendo"] .v2-custom-option.selected,html body .v2-custom-select[data-theme="PlayStation"] .v2-custom-option:hover,html body .v2-custom-select[data-theme="PlayStation"] .v2-custom-option:focus,html body .v2-custom-select[data-theme="PlayStation"] .v2-custom-option.selected,html body .v2-custom-select[data-theme="Xbox"] .v2-custom-option:hover,html body .v2-custom-select[data-theme="Xbox"] .v2-custom-option:focus,html body .v2-custom-select[data-theme="Xbox"] .v2-custom-option.selected,html body .v2-custom-select[data-theme="Sega"] .v2-custom-option:hover,html body .v2-custom-select[data-theme="Sega"] .v2-custom-option:focus,html body .v2-custom-select[data-theme="Sega"] .v2-custom-option.selected,html body .v2-custom-select[data-theme="status"] .v2-custom-option:hover,html body .v2-custom-select[data-theme="status"] .v2-custom-option:focus,html body .v2-custom-select[data-theme="status"] .v2-custom-option.selected{background:color-mix(in srgb,currentColor 10%,transparent)!important}
+html body .v2-custom-select[data-theme="PC"] .v2-custom-option:hover,html body .v2-custom-select[data-theme="PC"] .v2-custom-option:focus,html body .v2-custom-select[data-theme="PC"] .v2-custom-option.selected{background:#e2c45b!important;color:#171717!important}
 @media(max-width:620px){
-  html body .v2-custom-menu{background:var(--menu-bg)!important}
   html body .game-card.has-cover .game-card-copy,html body #archiveDlcPane .dlc-card.v2-dlc-card .game-card-copy{box-shadow:var(--panel-shadow)!important}
 }
