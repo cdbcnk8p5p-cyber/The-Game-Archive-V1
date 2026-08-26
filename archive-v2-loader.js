@@ -3,6 +3,7 @@
 const KEY='the-gaming-archive-v1';
 const COLD_WAR_MIGRATION='the-gaming-archive-migration-bocw-20260822';
 const SIRENS_REST_MIGRATION='the-gaming-archive-migration-sirens-rest-title-20260823';
+const MWII_MIGRATION='the-gaming-archive-migration-mwii-20260826';
 function ensureLegacyStatusControl(){
  if(document.getElementById('gameStatusFilter'))return;
  const select=document.createElement('select');
@@ -49,7 +50,24 @@ function migrateSirensRestTitle(){
   localStorage.setItem(SIRENS_REST_MIGRATION,'1');
  }catch{}
 }
+function migrateModernWarfareII(){
+ try{
+  if(localStorage.getItem(MWII_MIGRATION))return;
+  const raw=localStorage.getItem(KEY);
+  if(raw){
+   const state=JSON.parse(raw);
+   if(!Array.isArray(state.games))state.games=[];
+   state.games.forEach(g=>{g.currentlyPlaying=false});
+   let game=state.games.find(g=>g.id==='ga-mwii2022'||g.title==='Call of Duty: Modern Warfare II (2022)');
+   const update={id:'ga-mwii2022',title:'Call of Duty: Modern Warfare II (2022)',series:'Call of Duty',platform:'Xbox Series X/S',family:'Xbox',format:'Disc',status:'Incomplete',startedDate:'2026-08-26',completedDate:'',currentlyPlaying:true,notes:'Started on Xbox Series X/S on 26/08/2026.',cover:'./assets/covers/modern-warfare-ii-2022.png'};
+   if(game)Object.assign(game,update);else state.games.push(update);
+   localStorage.setItem(KEY,JSON.stringify(state));
+  }
+  localStorage.setItem(MWII_MIGRATION,'1');
+ }catch{}
+}
 ensureLegacyStatusControl();
 migrateColdWarCompletion();
 migrateSirensRestTitle();
+migrateModernWarfareII();
 })();
