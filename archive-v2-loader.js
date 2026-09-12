@@ -6,6 +6,7 @@ const SIRENS_REST_MIGRATION='the-gaming-archive-migration-sirens-rest-title-2026
 const MWII_MIGRATION='the-gaming-archive-migration-mwii-20260826';
 const MWII_COMPLETION_MIGRATION='the-gaming-archive-migration-mwii-complete-20260903';
 const MWIII_MIGRATION='the-gaming-archive-migration-mwiii-20260911';
+const MWIII_COMPLETION_MIGRATION='the-gaming-archive-migration-mwiii-complete-20260912';
 function ensureLegacyStatusControl(){
  if(document.getElementById('gameStatusFilter'))return;
  const select=document.createElement('select');
@@ -104,10 +105,31 @@ function migrateModernWarfareIII(){
   localStorage.setItem(MWIII_MIGRATION,'1');
  }catch{}
 }
+function migrateModernWarfareIIICompletion(){
+ try{
+  if(localStorage.getItem(MWIII_COMPLETION_MIGRATION))return;
+  const raw=localStorage.getItem(KEY);
+  if(raw){
+   const state=JSON.parse(raw);
+   const game=Array.isArray(state.games)?state.games.find(g=>g.id==='ga-mwiii2023'||g.title==='Call of Duty: Modern Warfare III (2023)'):null;
+   if(game){
+    game.status='Beaten';
+    game.startedDate='2026-09-11';
+    game.completedDate='2026-09-12';
+    game.currentlyPlaying=false;
+    game.notes='Completed on Xbox Series X/S on 12/09/2026.';
+    game.cover='./assets/covers/modern-warfare-iii-2023.jpeg';
+    localStorage.setItem(KEY,JSON.stringify(state));
+   }
+  }
+  localStorage.setItem(MWIII_COMPLETION_MIGRATION,'1');
+ }catch{}
+}
 ensureLegacyStatusControl();
 migrateColdWarCompletion();
 migrateSirensRestTitle();
 migrateModernWarfareII();
 migrateModernWarfareIICompletion();
 migrateModernWarfareIII();
+migrateModernWarfareIIICompletion();
 })();
