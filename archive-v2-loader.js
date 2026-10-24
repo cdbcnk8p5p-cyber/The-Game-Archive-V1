@@ -7,6 +7,7 @@ const MWII_MIGRATION='the-gaming-archive-migration-mwii-20260826';
 const MWII_COMPLETION_MIGRATION='the-gaming-archive-migration-mwii-complete-20260903';
 const MWIII_MIGRATION='the-gaming-archive-migration-mwiii-20260911';
 const MWIII_COMPLETION_MIGRATION='the-gaming-archive-migration-mwiii-complete-20260912';
+const MW4_MIGRATION='the-gaming-archive-migration-mw4-20261024';
 function ensureLegacyStatusControl(){
  if(document.getElementById('gameStatusFilter'))return;
  const select=document.createElement('select');
@@ -125,6 +126,22 @@ function migrateModernWarfareIIICompletion(){
   localStorage.setItem(MWIII_COMPLETION_MIGRATION,'1');
  }catch{}
 }
+function migrateModernWarfare4(){
+ try{
+  if(localStorage.getItem(MW4_MIGRATION))return;
+  const raw=localStorage.getItem(KEY);
+  if(raw){
+   const state=JSON.parse(raw);
+   if(!Array.isArray(state.games))state.games=[];
+   state.games.forEach(g=>{g.currentlyPlaying=false});
+   let game=state.games.find(g=>g.id==='ga-mw4'||g.title==='Call of Duty: Modern Warfare 4');
+   const update={id:'ga-mw4',title:'Call of Duty: Modern Warfare 4',series:'Call of Duty',platform:'Xbox Series X/S',family:'Xbox',format:'Disc',status:'Incomplete',startedDate:'2026-10-24',completedDate:'',currentlyPlaying:true,notes:'Started on Xbox Series X on 24/10/2026.',cover:'./assets/covers/modern-warfare-4.jpeg'};
+   if(game)Object.assign(game,update);else state.games.push(update);
+   localStorage.setItem(KEY,JSON.stringify(state));
+  }
+  localStorage.setItem(MW4_MIGRATION,'1');
+ }catch{}
+}
 ensureLegacyStatusControl();
 migrateColdWarCompletion();
 migrateSirensRestTitle();
@@ -132,4 +149,5 @@ migrateModernWarfareII();
 migrateModernWarfareIICompletion();
 migrateModernWarfareIII();
 migrateModernWarfareIIICompletion();
+migrateModernWarfare4();
 })();
