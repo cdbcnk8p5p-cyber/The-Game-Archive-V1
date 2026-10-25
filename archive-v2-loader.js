@@ -8,6 +8,7 @@ const MWII_COMPLETION_MIGRATION='the-gaming-archive-migration-mwii-complete-2026
 const MWIII_MIGRATION='the-gaming-archive-migration-mwiii-20260911';
 const MWIII_COMPLETION_MIGRATION='the-gaming-archive-migration-mwiii-complete-20260912';
 const MW4_MIGRATION='the-gaming-archive-migration-mw4-20261024';
+const MW4_COMPLETION_MIGRATION='the-gaming-archive-migration-mw4-complete-20261025';
 function ensureLegacyStatusControl(){
  if(document.getElementById('gameStatusFilter'))return;
  const select=document.createElement('select');
@@ -142,6 +143,26 @@ function migrateModernWarfare4(){
   localStorage.setItem(MW4_MIGRATION,'1');
  }catch{}
 }
+function migrateModernWarfare4Completion(){
+ try{
+  if(localStorage.getItem(MW4_COMPLETION_MIGRATION))return;
+  const raw=localStorage.getItem(KEY);
+  if(raw){
+   const state=JSON.parse(raw);
+   const game=Array.isArray(state.games)?state.games.find(g=>g.id==='ga-mw4'||g.title==='Call of Duty: Modern Warfare 4'):null;
+   if(game){
+    game.status='Beaten';
+    game.startedDate='2026-10-24';
+    game.completedDate='2026-10-25';
+    game.currentlyPlaying=false;
+    game.notes='Completed on Xbox Series X on 25/10/2026.';
+    game.cover='./assets/covers/modern-warfare-4.jpeg';
+    localStorage.setItem(KEY,JSON.stringify(state));
+   }
+  }
+  localStorage.setItem(MW4_COMPLETION_MIGRATION,'1');
+ }catch{}
+}
 ensureLegacyStatusControl();
 migrateColdWarCompletion();
 migrateSirensRestTitle();
@@ -150,4 +171,5 @@ migrateModernWarfareIICompletion();
 migrateModernWarfareIII();
 migrateModernWarfareIIICompletion();
 migrateModernWarfare4();
+migrateModernWarfare4Completion();
 })();
